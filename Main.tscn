@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://vrwqbu0l12wp"]
+
+[ext_resource type="Script" uid="uid://cgw8y30x70yq1" path="res://Main.cs" id="1_r0du0"]
+[ext_resource type="Texture2D" uid="uid://cua7qyvwjvg32" path="res://Assets/placeholderbg.png" id="2_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://c2fcawnqfa3wy" path="res://star.tscn" id="3_fos0i"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_r0du0")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("2_cm0pq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Star" parent="." instance=ExtResource("3_fos0i")]
+position = Vector2(306, -188)
