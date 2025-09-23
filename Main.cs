@@ -3,58 +3,91 @@ using System;
 
 public partial class Main : Node
 {
-	[Export] public PackedScene Star {get; set;}
-	
-	
-	//This enum dictates what we're currently doing in the game.
-	public enum GameState
-	{
-		StarSelect = 0, //We have not yet picked a star
-		Rhythm = 1 //We are doing the rhythm game
-	};
-	public int currentState;
-	public Vector2 cameraViewpoint = Vector2.Zero;
-	private Vector2 cameraDestination = Vector2.Zero;
-	
-	// Called when the node enters the scene tree for the first time
+    [Export] public PackedScene Star { get; set; }
+
+    private Camera2D _camera;
+
+    // Camera drag state
+    private bool _dragging = false;
+    private Vector2 _lastMousePos = Vector2.Zero;
+
+    // Game state
+    public enum GameState
+    {
+        StarSelect = 0,
+        Rhythm = 1
+    };
+    public int currentState;
+
 	public override void _Ready()
 	{
 		currentState = (int)GameState.StarSelect;
+
+		// Grab reference to Camera2D (assuming it's a child of Main)
+		_camera = GetNode<Camera2D>("Camera2D");
+
+		// Enable input processing for this node
+		SetProcessInput(true);
+
+		 // Example: spawn a star
+        Star starInstance = Star.Instantiate<Star>();
+        AddChild(starInstance);
+
+        // Connect the signal to a Main method
+        starInstance.Connect("StarClicked", new Callable(this, nameof(OnStarClicked)));
 	}
-	
-	public override void _Input(InputEvent @event)
+
+	private void OnStarClicked()
 	{
-		if (@event is InputEventMouseButton eventMouseButton)
+		//when start is pressed, trigger rhythm sequence
+		GD.Print("Main received a star click!");
+		currentState = (int)GameState.Rhythm;
+	}
+
+    public override void _Input(InputEvent @event)
+	{
+		// Camera dragging logic
+		if (@event is InputEventMouseButton mouseEvent)
 		{
-			//TODO: Center camera on selected star, potentially make everything else leave the screen like you're zooming in.
-			GD.Print("Click!");
-			currentState = (int)GameState.Rhythm; 
+			if (mouseEvent.ButtonIndex == MouseButton.Left)
+			{
+				if (mouseEvent.Pressed)
+				{
+					_dragging = true;
+					_lastMousePos = mouseEvent.Position;
+				}
+				else
+				{
+					_dragging = false;
+				}
+			}
 		}
-		
-		//We will only check for these inputs during the rhythm game.
+		else if (@event is InputEventMouseMotion motionEvent && _dragging)
+		{
+			Vector2 delta = motionEvent.Position - _lastMousePos;
+			_camera.GlobalPosition -= delta; // pan opposite to drag
+			_lastMousePos = motionEvent.Position;
+		}
+
+		// Other input logic
+		if (@event is InputEventMouseButton clickEvent && clickEvent.Pressed)
+		{
+			GD.Print("Click!");
+			currentState = (int)GameState.Rhythm;
+		}
+
+		// Rhythm game inputs
 		if (currentState == (int)GameState.Rhythm)
 		{
 			if (Input.IsActionJustPressed("Up"))
-			{
 				GD.Print("Up!");
-			}
 			if (Input.IsActionJustPressed("Down"))
-			{
 				GD.Print("Down!");
-			}
 			if (Input.IsActionJustPressed("Left"))
-			{
 				GD.Print("Left!");
-			}
 			if (Input.IsActionJustPressed("Right"))
-			{
 				GD.Print("Right!");
-			}
 		}
 	}
-	
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
 }
+
