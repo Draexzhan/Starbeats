@@ -10,8 +10,24 @@ radius = 47.0106
 script = ExtResource("1_e2x7v")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_e2x7v")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_46ao5")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("2_e2x7v")
+
+[node name="DownArrowSpawn" type="Marker2D" parent="."]
+position = Vector2(0, -300)
+
+[node name="LeftArrowSpawn" type="Marker2D" parent="."]
+position = Vector2(300, 0)
+
+[node name="UpArrowSpawn" type="Marker2D" parent="."]
+position = Vector2(0, 300)
+
+[node name="RightArrowSpawn" type="Marker2D" parent="."]
+position = Vector2(-300, 0)
+
+[connection signal="button_down" from="TextureButton" to="." method="_on_texture_button_button_down"]

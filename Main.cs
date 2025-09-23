@@ -3,32 +3,36 @@ using System;
 
 public partial class Main : Node
 {
+	[Export] public PackedScene Star {get; set;}
+	
+	
 	//This enum dictates what we're currently doing in the game.
 	public enum GameState
 	{
 		StarSelect = 0, //We have not yet picked a star
 		Rhythm = 1 //We are doing the rhythm game
 	};
-	public int CurrentState;
+	public int currentState;
+	public Vector2 cameraViewpoint = Vector2.Zero;
+	private Vector2 cameraDestination = Vector2.Zero;
 	
 	// Called when the node enters the scene tree for the first time
 	public override void _Ready()
 	{
-		CurrentState = (int)GameState.StarSelect;
+		currentState = (int)GameState.StarSelect;
 	}
 	
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _Input(InputEvent @event)
 	{
-		if (Input.IsActionJustPressed("Confirm") && CurrentState == (int)GameState.StarSelect)
+		if (@event is InputEventMouseButton eventMouseButton)
 		{
 			//TODO: Center camera on selected star, potentially make everything else leave the screen like you're zooming in.
 			GD.Print("Click!");
-			CurrentState = (int)GameState.Rhythm; 
+			currentState = (int)GameState.Rhythm; 
 		}
 		
 		//We will only check for these inputs during the rhythm game.
-		if (CurrentState == (int)GameState.Rhythm)
+		if (currentState == (int)GameState.Rhythm)
 		{
 			if (Input.IsActionJustPressed("Up"))
 			{
@@ -47,5 +51,10 @@ public partial class Main : Node
 				GD.Print("Right!");
 			}
 		}
+	}
+	
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
 	}
 }
