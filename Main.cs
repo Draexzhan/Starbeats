@@ -3,21 +3,21 @@ using System;
 
 public partial class Main : Node
 {
-    [Export] public PackedScene Star { get; set; }
+	[Export] public PackedScene Star { get; set; }
 
-    private Camera2D _camera;
+	private Camera2D _camera;
 
-    // Camera drag state
-    private bool _dragging = false;
-    private Vector2 _lastMousePos = Vector2.Zero;
+	// Camera drag state
+	private bool _dragging = false;
+	private Vector2 _lastMousePos = Vector2.Zero;
 
-    // Game state
-    public enum GameState
-    {
-        StarSelect = 0,
-        Rhythm = 1
-    };
-    public int currentState;
+	// Game state
+	public enum GameState
+	{
+		StarSelect = 0,
+		Rhythm = 1
+	};
+	public int currentState;
 
 	public override void _Ready()
 	{
@@ -30,11 +30,11 @@ public partial class Main : Node
 		SetProcessInput(true);
 
 		 // Example: spawn a star
-        Star starInstance = Star.Instantiate<Star>();
-        AddChild(starInstance);
+		Star starInstance = Star.Instantiate<Star>();
+		AddChild(starInstance);
 
-        // Connect the signal to a Main method
-        starInstance.Connect("StarClicked", new Callable(this, nameof(OnStarClicked)));
+		// Connect the signal to a Main method
+		starInstance.Connect("StarClicked", new Callable(this, nameof(OnStarClicked)));
 	}
 
 	private void OnStarClicked()
@@ -44,7 +44,7 @@ public partial class Main : Node
 		currentState = (int)GameState.Rhythm;
 	}
 
-    public override void _Input(InputEvent @event)
+	public override void _Input(InputEvent @event)
 	{
 		// Camera dragging logic
 		if (@event is InputEventMouseButton mouseEvent)
@@ -90,4 +90,3 @@ public partial class Main : Node
 		}
 	}
 }
-
