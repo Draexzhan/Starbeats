@@ -30,18 +30,21 @@ public partial class Main : Node
 		SetProcessInput(true);
 
 		 // Spawn a star
-        Star starInstance = Star.Instantiate<Star>();
-        AddChild(starInstance); // important: must add to scene first
+		Star starInstance = Star.Instantiate<Star>();
+		AddChild(starInstance); // important: must add to scene first
 
-        // Connect the StarClicked signal to Main
-        starInstance.Connect("StarClicked", new Callable(this, nameof(OnStarClicked)));
+		// Connect the StarClicked signal to Main
+		starInstance.Connect("StarClicked", new Callable(this, nameof(OnStarClicked)));
 	}
 
 	private void OnStarClicked()
 	{
-		//when star is pressed, trigger rhythm sequence
-		GD.Print("Main received a star click!");
-		currentState = (int)GameState.Rhythm;
+		if (currentState = (int)GameState.StarSelect)
+		{
+			//when star is pressed during Star Selection, trigger rhythm sequence
+			GD.Print("Main received a star click!");
+			currentState = (int)GameState.Rhythm;
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -67,13 +70,6 @@ public partial class Main : Node
 			Vector2 delta = motionEvent.Position - _lastMousePos;
 			_camera.GlobalPosition -= delta; // pan opposite to drag
 			_lastMousePos = motionEvent.Position;
-		}
-
-		// Other input logic
-		if (@event is InputEventMouseButton clickEvent && clickEvent.Pressed)
-		{
-			GD.Print("Click!");
-			currentState = (int)GameState.Rhythm;
 		}
 
 		// Rhythm game inputs
