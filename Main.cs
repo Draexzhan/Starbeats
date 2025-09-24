@@ -39,7 +39,7 @@ public partial class Main : Node
 
 	private void OnStarClicked()
 	{
-		if (currentState = (int)GameState.StarSelect)
+		if (currentState == (int)GameState.StarSelect)
 		{
 			//when star is pressed during Star Selection, trigger rhythm sequence
 			GD.Print("Main received a star click!");
