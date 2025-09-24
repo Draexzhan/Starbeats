@@ -6,11 +6,15 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_46ao5"]
 radius = 47.0106
 
-[node name="Star" type="Area2D"]
+[node name="Star" type="Area2D" node_paths=PackedStringArray("StarCollider", "StarButton")]
 script = ExtResource("1_e2x7v")
+StarCollider = NodePath("CollisionShape2D")
+StarButton = NodePath("TextureButton")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(93.59, 94.05)
+scale = Vector2(2.36, 2.36)
 shape = SubResource("CircleShape2D_46ao5")
 
 [node name="TextureButton" type="TextureButton" parent="."]

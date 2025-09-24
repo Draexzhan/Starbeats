@@ -29,17 +29,17 @@ public partial class Main : Node
 		// Enable input processing for this node
 		SetProcessInput(true);
 
-		 // Example: spawn a star
-		Star starInstance = Star.Instantiate<Star>();
-		AddChild(starInstance);
+		 // Spawn a star
+        Star starInstance = Star.Instantiate<Star>();
+        AddChild(starInstance); // important: must add to scene first
 
-		// Connect the signal to a Main method
-		starInstance.Connect("StarClicked", new Callable(this, nameof(OnStarClicked)));
+        // Connect the StarClicked signal to Main
+        starInstance.Connect("StarClicked", new Callable(this, nameof(OnStarClicked)));
 	}
 
 	private void OnStarClicked()
 	{
-		//when start is pressed, trigger rhythm sequence
+		//when star is pressed, trigger rhythm sequence
 		GD.Print("Main received a star click!");
 		currentState = (int)GameState.Rhythm;
 	}

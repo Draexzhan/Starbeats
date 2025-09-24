@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Joshua Foster\\Documents\\game builds\\starbeats\\Starbeats\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Joshua Foster\\Documents\\game builds\\starbeats\\Starbeats\\Startest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Startest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{75DBAC9B-F985-4AA4-8F23-41DA1492123F}|Starbeats.csproj|c:\\users\\joshua foster\\documents\\game builds\\starbeats\\starbeats\\star.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75DBAC9B-F985-4AA4-8F23-41DA1492123F}|Starbeats.csproj|solutionrelative:star.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{75DBAC9B-F985-4AA4-8F23-41DA1492123F}|Starbeats.csproj|c:\\users\\joshua foster\\documents\\game builds\\starbeats\\starbeats\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -13,6 +13,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Joshua Foster\\Documents\\game builds\\starbeats\\Starbeats\\Camera2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Camera2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Joshua Foster\\Documents\\game builds\\starbeats\\Starbeats\\Startest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Startest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,6 +31,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Star.cs",
+              "DocumentMoniker": "C:\\Users\\Joshua Foster\\Documents\\game builds\\starbeats\\Starbeats\\Star.cs",
+              "RelativeDocumentMoniker": "Star.cs",
+              "ToolTip": "C:\\Users\\Joshua Foster\\Documents\\game builds\\starbeats\\Starbeats\\Star.cs",
+              "RelativeToolTip": "Star.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T23:47:00.885Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Startest.cs",
               "DocumentMoniker": "C:\\Users\\Joshua Foster\\Documents\\game builds\\starbeats\\Starbeats\\Startest.cs",
               "RelativeDocumentMoniker": "Startest.cs",
@@ -34,8 +51,7 @@
               "RelativeToolTip": "Startest.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T22:45:54.42Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-23T22:45:54.42Z"
             },
             {
               "$type": "Document",
@@ -57,9 +73,10 @@
               "RelativeDocumentMoniker": "Main.cs",
               "ToolTip": "C:\\Users\\Joshua Foster\\Documents\\game builds\\starbeats\\Starbeats\\Main.cs",
               "RelativeToolTip": "Main.cs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAhwCAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-23T22:12:52.677Z"
+              "WhenOpened": "2025-09-23T22:12:52.677Z",
+              "EditorCaption": ""
             }
           ]
         }
