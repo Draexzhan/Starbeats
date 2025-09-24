@@ -1,18 +1,103 @@
-[gd_scene load_steps=5 format=3 uid="uid://vrwqbu0l12wp"]
+[gd_scene load_steps=12 format=3 uid="uid://vrwqbu0l12wp"]
 
 [ext_resource type="Script" uid="uid://cgw8y30x70yq1" path="res://Main.cs" id="1_r0du0"]
 [ext_resource type="Texture2D" uid="uid://cua7qyvwjvg32" path="res://Assets/placeholderbg.png" id="2_cm0pq"]
 [ext_resource type="Texture2D" uid="uid://biqnyl52q1of7" path="res://Assets/handshake.png" id="3_cm0pq"]
 [ext_resource type="PackedScene" uid="uid://c2fcawnqfa3wy" path="res://star.tscn" id="4_3dxm6"]
+[ext_resource type="Script" uid="uid://cpud4asjtx83d" path="res://Tester.cs" id="5_fos0i"]
+[ext_resource type="Script" uid="uid://b0v0rncay3vx0" path="res://ChartPlayer.cs" id="6_3dxm6"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_cm0pq"]
+script/source = "using Godot;
+using System;
+
+public partial class Camera2d : Camera2D
+{
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+}
+"
+
+[sub_resource type="Animation" id="Animation_3dxm6"]
+resource_name = "StartingGame"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0.6, 0.6), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lgr22"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.6, 0.6)]
+}
+
+[sub_resource type="Animation" id="Animation_trn2v"]
+resource_name = "StarSelected"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_03owx"]
+_data = {
+&"RESET": SubResource("Animation_lgr22"),
+&"StarSelected": SubResource("Animation_trn2v"),
+&"StartingGame": SubResource("Animation_3dxm6")
+}
 
 [node name="Main" type="Node"]
 script = ExtResource("1_r0du0")
 Star = ExtResource("4_3dxm6")
 
 [node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(1.3513817, 1.3513817)
 texture = ExtResource("2_cm0pq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.6, 0.6)
+limit_left = -1500
+limit_top = -900
+limit_right = 1500
+limit_bottom = 900
+script = SubResource("CSharpScript_cm0pq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_03owx")
+}
 
 [node name="Constellation" type="Node2D" parent="."]
 
@@ -21,3 +106,9 @@ position = Vector2(-23, 0)
 texture = ExtResource("3_cm0pq")
 
 [node name="Star" parent="Constellation" instance=ExtResource("4_3dxm6")]
+
+[node name="RhythmTester" type="Node" parent="."]
+script = ExtResource("5_fos0i")
+
+[node name="ChartPlayer" type="Node" parent="."]
+script = ExtResource("6_3dxm6")

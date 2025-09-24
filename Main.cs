@@ -29,7 +29,7 @@ public partial class Main : Node
 		// Enable input processing for this node
 		SetProcessInput(true);
 
-		 // Spawn a star
+		// Spawn a star
 		Star starInstance = Star.Instantiate<Star>();
 		AddChild(starInstance); // important: must add to scene first
 
@@ -39,12 +39,9 @@ public partial class Main : Node
 
 	private void OnStarClicked()
 	{
-		if (currentState = (int)GameState.StarSelect)
-		{
-			//when star is pressed during Star Selection, trigger rhythm sequence
-			GD.Print("Main received a star click!");
-			currentState = (int)GameState.Rhythm;
-		}
+		//when star is pressed, trigger rhythm sequence
+		GD.Print("Main received a star click!");
+		currentState = (int)GameState.Rhythm;
 	}
 
 	public override void _Input(InputEvent @event)
@@ -67,9 +64,14 @@ public partial class Main : Node
 		}
 		else if (@event is InputEventMouseMotion motionEvent && _dragging)
 		{
-			Vector2 delta = motionEvent.Position - _lastMousePos;
-			_camera.GlobalPosition -= delta; // pan opposite to drag
-			_lastMousePos = motionEvent.Position;
+			_camera.GlobalPosition -= motionEvent.Relative;
+		}
+
+		// Other input logic
+		if (@event is InputEventMouseButton clickEvent && clickEvent.Pressed)
+		{
+			GD.Print("Click!");
+			currentState = (int)GameState.Rhythm;
 		}
 
 		// Rhythm game inputs
