@@ -1,13 +1,100 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2fcawnqfa3wy"]
+[gd_scene load_steps=9 format=3 uid="uid://c2fcawnqfa3wy"]
 
 [ext_resource type="Script" uid="uid://l31bcb3op44g" path="res://Star.cs" id="1_e2x7v"]
 [ext_resource type="Texture2D" uid="uid://drxc15nrtauxl" path="res://Assets/star.png" id="2_e2x7v"]
+[ext_resource type="Texture2D" uid="uid://cmamkeg4rtbfd" path="res://Assets/dotted-ring.png" id="3_d7oe7"]
+[ext_resource type="Texture2D" uid="uid://boo6k5bbkdegg" path="res://Assets/ring.png" id="4_dvwch"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_46ao5"]
 radius = 47.0106
 
+[sub_resource type="Animation" id="Animation_d7oe7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DottedRing:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.565, 0.565)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DottedRing:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DottedRing:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-3.1415927]
+}
+
+[sub_resource type="Animation" id="Animation_dvwch"]
+resource_name = "playNote"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DottedRing:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.565, 0.565)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DottedRing:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DottedRing:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-3.1415927, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fi5u8"]
+_data = {
+&"RESET": SubResource("Animation_d7oe7"),
+&"playNote": SubResource("Animation_dvwch")
+}
+
 [node name="Star" type="Area2D"]
 script = ExtResource("1_e2x7v")
+inputAction = "Up"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -39,5 +126,19 @@ position = Vector2(0, 300)
 
 [node name="RightArrowSpawn" type="Marker2D" parent="."]
 position = Vector2(-300, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fi5u8")
+}
+
+[node name="DottedRing" type="Sprite2D" parent="."]
+rotation = -3.1415927
+scale = Vector2(0.565, 0.565)
+texture = ExtResource("3_d7oe7")
+
+[node name="Ring" type="Sprite2D" parent="."]
+scale = Vector2(0.565, 0.565)
+texture = ExtResource("4_dvwch")
 
 [connection signal="button_down" from="TextureButton" to="." method="_on_texture_button_button_down"]
