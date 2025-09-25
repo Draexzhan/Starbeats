@@ -8,8 +8,7 @@ public partial class Star : Area2D
 	public int LEADUP_SECONDS = 5;
 
 	[Export] public string inputAction;
-
-	[Signal] public delegate void StarClickedEventHandler();
+	private HitKeyEmitter _emitterNode;
 
 	public override void _Ready()
 	{
@@ -17,6 +16,7 @@ public partial class Star : Area2D
 		{
 			GD.PrintErr("no event action");
 		}
+		_emitterNode = GetNode<HitKeyEmitter>("./HitKeyEmitter.cs");
 	}
 
 	public void SpawnNote()
@@ -30,7 +30,7 @@ public partial class Star : Area2D
 		if (Input.IsActionPressed(inputAction))
 		{
 			// calculate timing
-			EmitSignal(SignalName.StarClicked);
+			HitKeyEmitter().Emit()
 		}
     }
 }
