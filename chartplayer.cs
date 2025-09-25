@@ -104,15 +104,21 @@ public partial class RhythmPlayer : Node
 
 
     private RhythmSong song;
-    public float chartTimer = -10f;
+    private Globals globals;
     private int currentSection = 0;
     private int currentLine = 0;
     private float lineDuration = 0f;
 
+    public override void _Ready()
+    {
+        globals = GetNode<Globals>("/root/Globals");
+    }
+
+
     public void LoadSong(RhythmSong newSong)
     {
         song = newSong;
-        chartTimer = -10f;
+        globals.ChartTimer = -10f;
         currentSection = 0;
         currentLine = 0;
 
@@ -127,7 +133,7 @@ public partial class RhythmPlayer : Node
     private bool songPlaying = false;
     public override void _Process(double delta)
     {
-        if (chartTimer >= 0f && !songPlaying)
+        if (globals.ChartTimer >= 0f && !songPlaying)
         {
             songPlaying = true;
 
@@ -147,22 +153,22 @@ public partial class RhythmPlayer : Node
         int linesInSection = section.Lines.Count;
         float sectionLineDuration = lineDuration / linesInSection;
 
-        chartTimer += (float)delta;
+        globals.ChartTimer += (float)delta;
 
         // Subtract the startOffset initially
         if (startOffset > 0f)
         {
-            chartTimer += startOffset;
+            globals.ChartTimer += startOffset;
             startOffset = 0f; // only apply once
         }
 
-        while (chartTimer >= sectionLineDuration && currentSection < song.Sections.Count)
+        while (globals.ChartTimer >= sectionLineDuration && currentSection < song.Sections.Count)
         {
             var line = section.Lines[currentLine];
             GD.Print($"[Player] Section {currentSection}, Line {currentLine}: {line.Notes} (5s early)");
 
             currentLine++;
-            chartTimer -= sectionLineDuration;
+            globals.ChartTimer -= sectionLineDuration;
 
             if (currentLine >= linesInSection)
             {

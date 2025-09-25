@@ -10,17 +10,18 @@ public partial class Star : Area2D
 	[Export] public string inputKey;
 	private HitKeyEmitter _emitterNode;
 	private RhythmPlayer _chartPlayer;
+	private Globals globals;
 
 	PackedScene arrow = GD.Load<PackedScene>("res://arrow.tscn");
 
 	public override void _Ready()
 	{
+		globals = GetNode<Globals>("/root/Globals");
 		if (inputKey == null)
 		{
 			GD.PrintErr("no event action");
 		}
 		_emitterNode = GetNode<HitKeyEmitter>("/root/Main/HitKeyEmitter");
-		// _chartPlayer = GetNode<RhythmPlayer>("/root/Main/ChartPlayer");
 	}
 
 	public void SpawnNote()
@@ -34,7 +35,7 @@ public partial class Star : Area2D
     {
 		if (Input.IsActionPressed(inputKey))
 		{
-			_emitterNode.Emit(inputKey, 4);
+			_emitterNode.Emit(inputKey, globals.ChartTimer);
 			SpawnNote();
 		}
     }
