@@ -6,7 +6,6 @@ public partial class Main : Node
 	[Export] public PackedScene Star { get; set; }
 
 	private Camera2D _camera;
-	private RhythmTester tester;
 
 	// Camera drag state
 	private bool _dragging = false;
