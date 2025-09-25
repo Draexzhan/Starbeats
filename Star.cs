@@ -33,7 +33,7 @@ public partial class Star : Area2D
 
     public override void _Process(double delta)
     {
-		if (Input.IsActionPressed(inputKey))
+		if (Input.IsActionJustPressed(inputKey))
 		{
 			_emitterNode.Emit(inputKey, globals.ChartTimer);
 			SpawnNote();
