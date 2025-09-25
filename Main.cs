@@ -26,25 +26,11 @@ public partial class Main : Node
 		// Grab reference to Camera2D (assuming it's a child of Main)
 		_camera = GetNode<Camera2D>("Camera2D");
 
-		// Enable input processing for this node
-		SetProcessInput(true);
-
-		// Spawn a star
-		Star starInstance = Star.Instantiate<Star>();
-		AddChild(starInstance); // important: must add to scene first
-
-		// Connect the StarClicked signal to Main
-		starInstance.Connect("StarClicked", new Callable(this, nameof(OnStarClicked)));
-
-
 		//placeholder for getting and playing chart
 		StartChart("res://songs/test.txt");
-		//placeholder for getting and playing audio track
-		var tester = GetNode<RhythmPlayer>("RhythmTester");
-		GD.Print(tester.currentChartTrack);
 	}
 
-	private void OnStarClicked()
+	private void OnHitKey()
 	{
 
 		//when star is pressed, trigger rhythm sequence
