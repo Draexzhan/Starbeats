@@ -10,6 +10,7 @@ public partial class Main : Node
 	// Camera drag state
 	private bool _dragging = false;
 	private Vector2 _lastMousePos = Vector2.Zero;
+	private Globals globals;
 
 	// Game state
 	public enum GameState
@@ -22,6 +23,9 @@ public partial class Main : Node
 	public override void _Ready()
 	{
 		currentState = (int)GameState.StarSelect;
+		globals = GetNode<Globals>("/root/Globals");
+		globals.ActiveStar = GetNode<Star>("Constellation/LeftStar");
+		GD.Print(globals.ActiveStar.ToString());
 
 		// Grab reference to Camera2D (assuming it's a child of Main)
 		_camera = GetNode<Camera2D>("Camera2D");
@@ -81,19 +85,15 @@ public partial class Main : Node
 				GD.Print("Right!");
 		}
 	}
-	private RhythmPlayer rhythmPlayer;
-		public void StartChart(string chartPath)
+
+	public void StartChart(string chartPath)
 	{
 		GD.Print($"[Main] Starting chart: {chartPath}");
 
 		// Parse chart
 		var song = RhythmParser.ParseFile(chartPath);
 
-		// Create player node
-		rhythmPlayer = new RhythmPlayer();
-		AddChild(rhythmPlayer);
-
 		// Load song into player
-		rhythmPlayer.LoadSong(song);
+		GetNode<ChartPlayer>("ChartPlayer").LoadSong(song);
 	}
 }

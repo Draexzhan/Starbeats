@@ -7,9 +7,8 @@ public partial class Star : Area2D
 {
 	public int LEADUP_SECONDS = 5;
 
-	[Export] public string inputKey;
 	private HitKeyEmitter _emitterNode;
-	private RhythmPlayer _chartPlayer;
+	private ChartPlayer _chartPlayer;
 	private Globals globals;
 
 	PackedScene arrow = GD.Load<PackedScene>("res://arrow.tscn");
@@ -17,14 +16,10 @@ public partial class Star : Area2D
 	public override void _Ready()
 	{
 		globals = GetNode<Globals>("/root/Globals");
-		if (inputKey == null)
-		{
-			GD.PrintErr("no event action");
-		}
 		_emitterNode = GetNode<HitKeyEmitter>("/root/Main/HitKeyEmitter");
 	}
 
-	public void SpawnNote()
+	public void SpawnNote(string inputKey)
 	{
 		Arrow a = arrow.Instantiate<Arrow>();
 		AddChild(a);
@@ -33,10 +28,23 @@ public partial class Star : Area2D
 
     public override void _Process(double delta)
     {
-		if (Input.IsActionJustPressed(inputKey))
+		if (globals.ActiveStar != this) return;
+
+		if (Input.IsActionJustPressed("Up"))
 		{
-			_emitterNode.Emit(inputKey, globals.ChartTimer);
-			SpawnNote();
+			_emitterNode.Emit("Up", globals.ChartTimer);
+		}
+		else if (Input.IsActionJustPressed("Down"))
+		{
+			_emitterNode.Emit("Down", globals.ChartTimer);
+		}
+		else if (Input.IsActionJustPressed("Left"))
+		{
+			_emitterNode.Emit("Left", globals.ChartTimer);
+		}
+		else if (Input.IsActionJustPressed("Right"))
+		{
+			_emitterNode.Emit("Right", globals.ChartTimer);
 		}
     }
 }

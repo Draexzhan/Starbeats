@@ -90,14 +90,8 @@ public static class RhythmParser
 
 
 // Player
-public partial class RhythmPlayer : Node
+public partial class ChartPlayer : Node
 {
-    [Export] public PackedScene NoteLeftScene { get; set; } //placeholder for actual notes
-    [Export] public PackedScene NoteUpScene { get; set; } //placeholder for actual notes
-    [Export] public PackedScene NoteRightScene { get; set; } //placeholder for actual notes
-    [Export] public PackedScene NoteDownScene { get; set; } //placeholder for actual notes
-
-
     private RhythmSong song;
     private Globals globals;
     private int currentSection = 0;
@@ -162,6 +156,8 @@ public partial class RhythmPlayer : Node
             var line = section.Lines[currentLine];
             GD.Print($"[Player] Section {currentSection}, Line {currentLine}: {line.Notes} (5s early)");
 
+            globals.ActiveStar.SpawnNote("Left"); // TODO remove this, this is for testing before we have a chart
+
             currentLine++;
             globals.ChartTimer -= sectionLineDuration;
 
@@ -182,27 +178,19 @@ public partial class RhythmPlayer : Node
         {
             if (notes[0] == '1')
             {
-                var noteInstance = (Node2D)NoteLeftScene.Instantiate();
-
-                AddChild(noteInstance);
+                globals.ActiveStar.SpawnNote("Left");
             }
             if (notes[1] == '1')
             {
-                var noteInstance = (Node2D)NoteUpScene.Instantiate();
-
-                AddChild(noteInstance);
+                globals.ActiveStar.SpawnNote("Up");
             }
             if (notes[2] == '1')
             {
-                var noteInstance = (Node2D)NoteRightScene.Instantiate();
-
-                AddChild(noteInstance);
+                globals.ActiveStar.SpawnNote("Right");
             }
             if (notes[3] == '1')
             {
-                var noteInstance = (Node2D)NoteDownScene.Instantiate();
-
-                AddChild(noteInstance);
+                globals.ActiveStar.SpawnNote("Down");
             }
         }
     }

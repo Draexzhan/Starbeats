@@ -31,7 +31,6 @@ public partial class Arrow : Node2D
 
     private void OnAnimationPlayerAnimationFinished(StringName animName)
     {
-        GD.Print($"Animation '{animName}' finished!");
         QueueFree();
     }
 }
