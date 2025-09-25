@@ -7,30 +7,35 @@ public partial class Star : Area2D
 {
 	public int LEADUP_SECONDS = 5;
 
-	[Export] public string inputAction;
+	[Export] public string inputKey;
+	private HitKeyEmitter _emitterNode;
+	private RhythmPlayer _chartPlayer;
 
-	[Signal] public delegate void StarClickedEventHandler();
+	PackedScene arrow = GD.Load<PackedScene>("res://arrow.tscn");
 
 	public override void _Ready()
 	{
-		if (inputAction == null)
+		if (inputKey == null)
 		{
 			GD.PrintErr("no event action");
 		}
+		_emitterNode = GetNode<HitKeyEmitter>("/root/Main/HitKeyEmitter");
+		// _chartPlayer = GetNode<RhythmPlayer>("/root/Main/ChartPlayer");
 	}
 
 	public void SpawnNote()
 	{
-		AnimationPlayer player = GetNode<AnimationPlayer>("AnimationPlayer");
-		player.Play("playNote");
+		Arrow a = arrow.Instantiate<Arrow>();
+		AddChild(a);
+		a.SetDirection(inputKey);
 	}
 
     public override void _Process(double delta)
     {
-		if (Input.IsActionPressed(inputAction))
+		if (Input.IsActionPressed(inputKey))
 		{
-			// calculate timing
-			EmitSignal(SignalName.StarClicked);
+			_emitterNode.Emit(inputKey, 4);
+			SpawnNote();
 		}
     }
 }

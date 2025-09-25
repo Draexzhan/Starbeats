@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://vrwqbu0l12wp"]
+[gd_scene load_steps=11 format=3 uid="uid://vrwqbu0l12wp"]
 
 [ext_resource type="Script" uid="uid://cgw8y30x70yq1" path="res://Main.cs" id="1_r0du0"]
 [ext_resource type="Texture2D" uid="uid://cua7qyvwjvg32" path="res://Assets/placeholderbg.png" id="2_cm0pq"]
 [ext_resource type="Texture2D" uid="uid://biqnyl52q1of7" path="res://Assets/handshake.png" id="3_cm0pq"]
 [ext_resource type="PackedScene" uid="uid://c2fcawnqfa3wy" path="res://star.tscn" id="4_3dxm6"]
-[ext_resource type="Script" uid="uid://b0v0rncay3vx0" path="res://ChartPlayer.cs" id="6_3dxm6"]
+[ext_resource type="Script" path="res://ChartPlayer.cs" id="6_3dxm6"]
+[ext_resource type="Script" uid="uid://dn3vtt8r0u2ya" path="res://HitKeyEmitter.cs" id="6_lgr22"]
 
 [sub_resource type="Animation" id="Animation_lgr22"]
 length = 0.001
@@ -89,18 +90,21 @@ texture = ExtResource("3_cm0pq")
 
 [node name="LeftStar" parent="Constellation" instance=ExtResource("4_3dxm6")]
 position = Vector2(-366, 204)
-inputAction = "Left"
+inputKey = "Left"
 
 [node name="RightStar" parent="Constellation" instance=ExtResource("4_3dxm6")]
 position = Vector2(470, -170)
-inputAction = "Right"
+inputKey = "Right"
 
 [node name="UpStar" parent="Constellation" instance=ExtResource("4_3dxm6")]
 position = Vector2(99, -351)
 
 [node name="DownStar" parent="Constellation" instance=ExtResource("4_3dxm6")]
-position = Vector2(25, 336)
-inputAction = "Down"
+position = Vector2(25, 335)
+inputKey = "Down"
 
 [node name="ChartPlayer" type="Node" parent="."]
 script = ExtResource("6_3dxm6")
+
+[node name="HitKeyEmitter" type="Node" parent="."]
+script = ExtResource("6_lgr22")
