@@ -35,7 +35,13 @@ public partial class Main : Node
 
 		// Connect the StarClicked signal to Main
 		starInstance.Connect("StarClicked", new Callable(this, nameof(OnStarClicked)));
+
+
+		//placeholder for getting and playing chart
 		StartChart("res://songs/test.txt");
+		//placeholder for getting and playing audio track
+		var tester = GetNode<RhythmPlayer>("RhythmTester");
+		GD.Print(tester.currentChartTrack);
 	}
 
 	private void OnStarClicked()
