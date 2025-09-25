@@ -6,6 +6,7 @@ public partial class Main : Node
 	[Export] public PackedScene Star { get; set; }
 
 	private Camera2D _camera;
+	private RhythmTester tester;
 
 	// Camera drag state
 	private bool _dragging = false;
@@ -35,10 +36,12 @@ public partial class Main : Node
 
 		// Connect the StarClicked signal to Main
 		starInstance.Connect("StarClicked", new Callable(this, nameof(OnStarClicked)));
+		StartChart("res://songs/test.txt");
 	}
 
 	private void OnStarClicked()
 	{
+
 		//when star is pressed, trigger rhythm sequence
 		GD.Print("Main received a star click!");
 		currentState = (int)GameState.Rhythm;
@@ -86,5 +89,20 @@ public partial class Main : Node
 			if (Input.IsActionJustPressed("Right"))
 				GD.Print("Right!");
 		}
+	}
+	private RhythmPlayer rhythmPlayer;
+		public void StartChart(string chartPath)
+	{
+		GD.Print($"[Main] Starting chart: {chartPath}");
+
+		// Parse chart
+		var song = RhythmParser.ParseFile(chartPath);
+
+		// Create player node
+		rhythmPlayer = new RhythmPlayer();
+		AddChild(rhythmPlayer);
+
+		// Load song into player
+		rhythmPlayer.LoadSong(song);
 	}
 }

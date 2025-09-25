@@ -7,16 +7,14 @@ public partial class RhythmTester : Node
 
     public override void _Ready()
     {
-        GD.Print("Testing RhythmPlayer...");
-
-        // Load the song
+        GD.Print("Starting Rhythm Tester...");
+        
+        // Parse chart file
         var song = RhythmParser.ParseFile("res://songs/test.txt");
 
-        // Print BPM and sections for debugging
-        GD.Print($"BPM: {song.BPM}");
-        GD.Print($"Sections: {song.Sections.Count}");
+        GD.Print($"Loaded song with BPM={song.BPM}, Sections={song.Sections.Count}");
 
-        // Create and add RhythmPlayer
+        // Create RhythmPlayer node
         player = new RhythmPlayer();
         AddChild(player);
 

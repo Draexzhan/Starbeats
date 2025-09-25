@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cetfrswd8reci"
+path="res://.godot/imported/team 2 demo v2 (base layer).mp3-c26d64b416560815bbd743660324b501.mp3str"
+
+[deps]
+
+source_file="res://songs/team 2 demo v2 (base layer).mp3"
+dest_files=["res://.godot/imported/team 2 demo v2 (base layer).mp3-c26d64b416560815bbd743660324b501.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
