@@ -27,7 +27,6 @@ public static class RhythmParser
 {
     public static RhythmSong ParseFile(string path)
     {
-        GD.Print($"[Parser] Loading chart from {path}");
         var song = new RhythmSong();
         var section = new RhythmSection();
 
@@ -47,13 +46,11 @@ public static class RhythmParser
 
             if (string.IsNullOrEmpty(line))
             {
-                GD.Print("[Parser] Skipping empty line.");
                 continue;
             }
 
             if (line.StartsWith("--"))
             {
-                GD.Print($"[Parser] Section break. Adding section with {section.Lines.Count} lines.");
                 if (section.Lines.Count > 0)
                 {
                     song.Sections.Add(section);
@@ -77,14 +74,12 @@ public static class RhythmParser
                 continue;
             }
 
-            GD.Print($"[Parser] Adding beat line: {line}");
             section.Lines.Add(new BeatLine(line));
         }
 
         // Add final section if it has lines
         if (section.Lines.Count > 0)
         {
-            GD.Print($"[Parser] Final section added with {section.Lines.Count} lines.");
             song.Sections.Add(section);
         }
 
