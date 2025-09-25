@@ -104,7 +104,7 @@ public partial class RhythmPlayer : Node
 
 
     private RhythmSong song;
-    private float timer = -10f;
+    public float chartTimer = -10f;
     private int currentSection = 0;
     private int currentLine = 0;
     private float lineDuration = 0f;
@@ -112,7 +112,7 @@ public partial class RhythmPlayer : Node
     public void LoadSong(RhythmSong newSong)
     {
         song = newSong;
-        timer = -10f;
+        chartTimer = -10f;
         currentSection = 0;
         currentLine = 0;
 
@@ -123,10 +123,11 @@ public partial class RhythmPlayer : Node
     }
 
     private float startOffset = 5f; // trigger lines 5s early
+    public string currentChartTrack = "res://songs/team 2 demo v2 (layer 1).mp3";
     private bool songPlaying = false;
     public override void _Process(double delta)
     {
-        if (timer >= 0f && !songPlaying)
+        if (chartTimer >= 0f && !songPlaying)
         {
             songPlaying = true;
 
@@ -135,7 +136,7 @@ public partial class RhythmPlayer : Node
             AddChild(audioManager);
 
             // Play the audio file
-            audioManager.PlayAudio("res://songs/team 2 demo v2 (layer 1).mp3");
+            audioManager.PlayAudio(currentChartTrack);
         }
 
         if (song == null) return;
@@ -146,22 +147,22 @@ public partial class RhythmPlayer : Node
         int linesInSection = section.Lines.Count;
         float sectionLineDuration = lineDuration / linesInSection;
 
-        timer += (float)delta;
+        chartTimer += (float)delta;
 
         // Subtract the startOffset initially
         if (startOffset > 0f)
         {
-            timer += startOffset;
+            chartTimer += startOffset;
             startOffset = 0f; // only apply once
         }
 
-        while (timer >= sectionLineDuration && currentSection < song.Sections.Count)
+        while (chartTimer >= sectionLineDuration && currentSection < song.Sections.Count)
         {
             var line = section.Lines[currentLine];
             GD.Print($"[Player] Section {currentSection}, Line {currentLine}: {line.Notes} (5s early)");
 
             currentLine++;
-            timer -= sectionLineDuration;
+            chartTimer -= sectionLineDuration;
 
             if (currentLine >= linesInSection)
             {
