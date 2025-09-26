@@ -26,8 +26,8 @@ public partial class Star : Area2D
 		a.SetDirection(inputKey);
 	}
 
-    public override void _Process(double delta)
-    {
+	public override void _Process(double delta)
+	{
 		if (globals.ActiveStar != this) return;
 
 		if (Input.IsActionJustPressed("Up"))
@@ -46,5 +46,5 @@ public partial class Star : Area2D
 		{
 			_emitterNode.Emit("Right", globals.ChartTimer);
 		}
-    }
+	}
 }

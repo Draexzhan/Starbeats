@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://divuqjtbrhm4s"]
+
+[ext_resource type="Texture2D" uid="uid://kqdftrrg38ye" path="res://Assets/rays.png" id="1_2r8fq"]
+
+[sub_resource type="Shader" id="Shader_2r8fq"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+vec4 newColor(float oldTone, float heat) {
+	return (vec4( cos(heat * PI)/7.0 + 0.5 + heat/4.0, sin(heat * PI/3.0) * 0.9 + 0.2, heat, 1.0) * oldTone);
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	float RedTones = COLOR.r;
+	float BlueTones = COLOR.b;
+	float Alpha = COLOR.a;
+	COLOR = vec4(newColor(RedTones, 1.0) + newColor(BlueTones, 1.0));
+	COLOR.a = Alpha;
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_71a1j"]
+shader = SubResource("Shader_2r8fq")
+
+[node name="Sprite2D" type="Sprite2D"]
+material = SubResource("ShaderMaterial_71a1j")
+position = Vector2(957, 530)
+texture = ExtResource("1_2r8fq")
