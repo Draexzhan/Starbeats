@@ -1,11 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://vrwqbu0l12wp"]
+[gd_scene load_steps=16 format=3 uid="uid://vrwqbu0l12wp"]
 
 [ext_resource type="Script" uid="uid://cgw8y30x70yq1" path="res://Main.cs" id="1_r0du0"]
 [ext_resource type="Texture2D" uid="uid://cua7qyvwjvg32" path="res://Assets/placeholderbg.png" id="2_cm0pq"]
 [ext_resource type="Texture2D" uid="uid://biqnyl52q1of7" path="res://Assets/handshake.png" id="3_cm0pq"]
 [ext_resource type="PackedScene" uid="uid://c2fcawnqfa3wy" path="res://star.tscn" id="4_3dxm6"]
-[ext_resource type="Script" uid="uid://verobu25v00h" path="res://ChartPlayer.cs" id="6_3dxm6"]
+[ext_resource type="Script" uid="uid://f4j2hd8ie4co" path="res://ChartPlayer.cs" id="6_3dxm6"]
 [ext_resource type="Script" uid="uid://dn3vtt8r0u2ya" path="res://HitKeyEmitter.cs" id="6_lgr22"]
+[ext_resource type="AudioStream" uid="uid://c88moigw2okru" path="res://songs/Track 1 - All Layers.wav" id="7_20pc6"]
+[ext_resource type="AudioStream" uid="uid://dkrfsdou0wh3k" path="res://songs/Track 1 - Layer 0.wav" id="8_5vvyt"]
+[ext_resource type="AudioStream" uid="uid://bjhrbg2dxc017" path="res://songs/Track 1 - Layer 1.wav" id="9_c6i3y"]
+[ext_resource type="AudioStream" uid="uid://cbpuqs08saghc" path="res://songs/Track 1 - Layer 2.wav" id="10_c2ibq"]
+[ext_resource type="AudioStream" uid="uid://buw4bb7irs4w3" path="res://songs/Track 1 - Layer 3.wav" id="11_j4qnp"]
 
 [sub_resource type="Animation" id="Animation_lgr22"]
 length = 0.001
@@ -90,7 +95,6 @@ texture = ExtResource("3_cm0pq")
 
 [node name="LeftStar" parent="Constellation" instance=ExtResource("4_3dxm6")]
 position = Vector2(-366, 204)
-enabled = true
 
 [node name="RightStar" parent="Constellation" instance=ExtResource("4_3dxm6")]
 position = Vector2(470, -170)
@@ -103,6 +107,27 @@ position = Vector2(25, 335)
 
 [node name="ChartPlayer" type="Node" parent="."]
 script = ExtResource("6_3dxm6")
+
+[node name="CollectMyAudios" type="Node2D" parent="ChartPlayer"]
+
+[node name="master" type="AudioStreamPlayer2D" parent="ChartPlayer/CollectMyAudios"]
+stream = ExtResource("7_20pc6")
+
+[node name="Layer0" type="AudioStreamPlayer2D" parent="ChartPlayer/CollectMyAudios"]
+stream = ExtResource("8_5vvyt")
+autoplay = true
+
+[node name="Layer1" type="AudioStreamPlayer2D" parent="ChartPlayer/CollectMyAudios"]
+stream = ExtResource("9_c6i3y")
+autoplay = true
+
+[node name="Layer2" type="AudioStreamPlayer2D" parent="ChartPlayer/CollectMyAudios"]
+stream = ExtResource("10_c2ibq")
+autoplay = true
+
+[node name="Layer3" type="AudioStreamPlayer2D" parent="ChartPlayer/CollectMyAudios"]
+stream = ExtResource("11_j4qnp")
+autoplay = true
 
 [node name="HitKeyEmitter" type="Node" parent="."]
 script = ExtResource("6_lgr22")

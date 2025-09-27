@@ -29,9 +29,11 @@ public partial class Main : Node
 
 		// Grab reference to Camera2D (assuming it's a child of Main)
 		_camera = GetNode<Camera2D>("Camera2D");
-
+		
 		//placeholder for getting and playing chart
 		StartChart("res://songs/test.txt");
+
+
 	}
 
 	private void OnHitKey()
@@ -40,6 +42,8 @@ public partial class Main : Node
 		//when star is pressed, trigger rhythm sequence
 		GD.Print("Main received a star click!");
 		currentState = (int)GameState.Rhythm;
+		//Star.InitializeStar() placeholder
+		InitializeStar(1);
 	}
 
 	public override void _Input(InputEvent @event)
@@ -70,6 +74,7 @@ public partial class Main : Node
 		{
 			GD.Print("Click!");
 			currentState = (int)GameState.Rhythm;
+			InitializeStar(1);
 		}
 
 		// Rhythm game inputs
@@ -85,7 +90,33 @@ public partial class Main : Node
 				GD.Print("Right!");
 		}
 	}
-
+	public void InitializeStar(int starnumber)
+	{
+		if (starnumber == 0)
+		{
+			StartChart("res://songs/test.txt");
+			var song = GetNode<AudioStreamPlayer>("ChartPlayer/CollectMyAudios/Layer0");
+			GetNode<AudioManager>("ChartPlayer").FadeIn(song, 3f);
+		}
+		else if (starnumber == 1)
+		{
+			StartChart("res://songs/test.txt");
+			var song = GetNode<AudioStreamPlayer>("ChartPlayer/CollectMyAudios/Layer1");
+			GetNode<AudioManager>("ChartPlayer").FadeIn(song, 3f);
+		}
+		else if (starnumber == 2)
+		{
+			StartChart("res://songs/test.txt");
+			var song = GetNode<AudioStreamPlayer>("ChartPlayer/CollectMyAudios/Layer2");
+			GetNode<AudioManager>("ChartPlayer").FadeIn(song, 3f);
+		}
+		else if (starnumber == 3)
+		{
+			StartChart("res://songs/test.txt");
+			var song = GetNode<AudioStreamPlayer>("ChartPlayer/CollectMyAudios/Layer3");
+			GetNode<AudioManager>("ChartPlayer").FadeIn(song, 3f);
+		}
+	}
 	public void StartChart(string chartPath)
 	{
 		GD.Print($"[Main] Starting chart: {chartPath}");

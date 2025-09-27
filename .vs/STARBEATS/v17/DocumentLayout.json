@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Joshua Foster\\Documents\\game builds\\starbeats\\Starbeats\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{75DBAC9B-F985-4AA4-8F23-41DA1492123F}|Starbeats.csproj|c:\\users\\joshua foster\\documents\\game builds\\starbeats\\starbeats\\chartplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75DBAC9B-F985-4AA4-8F23-41DA1492123F}|Starbeats.csproj|solutionrelative:chartplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{75DBAC9B-F985-4AA4-8F23-41DA1492123F}|Starbeats.csproj|c:\\users\\joshua foster\\documents\\game builds\\starbeats\\starbeats\\star.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{75DBAC9B-F985-4AA4-8F23-41DA1492123F}|Starbeats.csproj|solutionrelative:star.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -19,6 +23,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ChartPlayer.cs",
+              "DocumentMoniker": "C:\\Users\\Joshua Foster\\Documents\\game builds\\starbeats\\Starbeats\\ChartPlayer.cs",
+              "RelativeDocumentMoniker": "ChartPlayer.cs",
+              "ToolTip": "C:\\Users\\Joshua Foster\\Documents\\game builds\\starbeats\\Starbeats\\ChartPlayer.cs",
+              "RelativeToolTip": "ChartPlayer.cs",
+              "ViewState": "AQIAAAgBAAAAAAAAAIBYwAwBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-26T22:53:27.127Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Star.cs",
               "DocumentMoniker": "C:\\Users\\Joshua Foster\\Documents\\game builds\\starbeats\\Starbeats\\Star.cs",
               "RelativeDocumentMoniker": "Star.cs",
