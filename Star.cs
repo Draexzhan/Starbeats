@@ -59,7 +59,7 @@ public partial class Star : Area2D
 		if (rawGrade < 0.5)
 		{
 			label.Text = DisplayGrade(rawGrade);
-			arrow.QueueFree();
+			arrow.Hit();
 		}
 		else
 		{
@@ -70,13 +70,13 @@ public partial class Star : Area2D
 	string DisplayGrade(float rawGrade)
 	{
 		var absGrade = Math.Abs(rawGrade);
-		var msOff = Math.Round(absGrade * 100);
+		var msOff = Math.Round(absGrade * 1000);
 
 		var grade = msOff switch
 		{
-			< 8 => "PERFECT",
-			< 16 => "GOOD",
-			< 32 => "OK",
+			< 30 => "PERFECT",
+			< 60 => "GOOD",
+			< 120 => "OK",
 			_ => "BAD",
 		};
 		var lateOrEarly = rawGrade < 0 ? "late" : "early";

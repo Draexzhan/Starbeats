@@ -7,15 +7,18 @@ public partial class Arrow : Node2D
     public static float PREP_TIME_SECONDS = 2f;
     public float hitTime = 0f;
     public string direction;
+    AnimationPlayer player;
+
 
     public override void _Ready()
     {
-        AnimationPlayer player = GetNode<AnimationPlayer>("AnimationPlayer");
+        player = GetNode<AnimationPlayer>("AnimationPlayer");
         player.Play("Play");
 
     }
 
-    public void setHitTimer(float audioTimer) {
+    public void setHitTimer(float audioTimer)
+    {
         hitTime = audioTimer + PREP_TIME_SECONDS;
     }
 
@@ -34,6 +37,12 @@ public partial class Arrow : Node2D
 
     private void OnAnimationPlayerAnimationFinished(StringName animName)
     {
+        QueueFree();
+    }
+
+    public void Hit()
+    {
+        player.Stop();
         QueueFree();
     }
 }
