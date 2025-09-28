@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cua7qyvwjvg32" path="res://Assets/placeholderbg.png" id="2_cm0pq"]
 [ext_resource type="Texture2D" uid="uid://biqnyl52q1of7" path="res://Assets/handshake.png" id="3_cm0pq"]
 [ext_resource type="PackedScene" uid="uid://c2fcawnqfa3wy" path="res://star.tscn" id="4_3dxm6"]
-[ext_resource type="Script" uid="uid://f4j2hd8ie4co" path="res://ChartPlayer.cs" id="6_3dxm6"]
+[ext_resource type="Script" uid="uid://dm6py1l3smlud" path="res://ChartPlayer.cs" id="6_3dxm6"]
 [ext_resource type="Script" uid="uid://dn3vtt8r0u2ya" path="res://HitKeyEmitter.cs" id="6_lgr22"]
 [ext_resource type="AudioStream" uid="uid://c88moigw2okru" path="res://songs/Track 1 - All Layers.wav" id="7_20pc6"]
 [ext_resource type="AudioStream" uid="uid://dkrfsdou0wh3k" path="res://songs/Track 1 - Layer 0.wav" id="8_5vvyt"]

@@ -29,7 +29,7 @@ public partial class Main : Node
 
 		// Grab reference to Camera2D (assuming it's a child of Main)
 		_camera = GetNode<Camera2D>("Camera2D");
-		
+
 		//placeholder for getting and playing chart
 		StartChart("res://songs/test.txt");
 
