@@ -144,7 +144,6 @@ public partial class ChartPlayer : Node
     private float startOffset = 5f; // trigger lines 5s early
     public override void _Process(double delta)
     {
-        GD.Print(globals.audioTimer);
         if (song == null) return;
 
         if (currentSection >= song.Sections.Count) return;

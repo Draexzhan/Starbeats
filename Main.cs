@@ -3,8 +3,6 @@ using System;
 
 public partial class Main : Node
 {
-	[Export] public PackedScene Star { get; set; }
-
 	private Camera2D _camera;
 
 	// Camera drag state
@@ -25,15 +23,12 @@ public partial class Main : Node
 		currentState = (int)GameState.StarSelect;
 		globals = GetNode<Globals>("/root/Globals");
 		globals.ActiveStar = GetNode<Star>("Constellation/LeftStar");
-		GD.Print(globals.ActiveStar.ToString());
 
 		// Grab reference to Camera2D (assuming it's a child of Main)
 		_camera = GetNode<Camera2D>("Camera2D");
 
 		//placeholder for getting and playing chart
 		StartChart("res://songs/test.txt");
-
-
 	}
 
 	private void OnHitKey()
@@ -42,7 +37,6 @@ public partial class Main : Node
 		//when star is pressed, trigger rhythm sequence
 		GD.Print("Main received a star click!");
 		currentState = (int)GameState.Rhythm;
-		//Star.InitializeStar() placeholder
 		InitializeStar(1);
 	}
 
@@ -123,6 +117,7 @@ public partial class Main : Node
 		var song = RhythmParser.ParseFile(chartPath);
 
 		// Load song into player
-		GetNode<ChartPlayer>("ChartPlayer").LoadSong(song);
+		var chartPlayer = GetNode<ChartPlayer>("ChartPlayer");
+		chartPlayer.LoadSong(song);
 	}
 }
