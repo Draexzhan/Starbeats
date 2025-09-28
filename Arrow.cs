@@ -11,6 +11,7 @@ public partial class Arrow : Node2D
 
     public void SetDirection(string direction)
     {
+        GD.Print("spawned");
         if (direction == "Up")
         {
             RotationDegrees = 0;

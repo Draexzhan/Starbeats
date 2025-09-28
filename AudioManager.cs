@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 public partial class AudioManager : Node
 {
-    private AudioStreamPlayer masterPlayer; //always playing in bg. muted
+    AudioStreamPlayer masterPlayer;
     public float audioTimer = 0f;
     private Globals globals;
     private AudioStreamPlayer Layer0;
@@ -15,10 +15,9 @@ public partial class AudioManager : Node
     public override void _Ready()
     {
         globals = GetNode<Globals>("/root/Globals");
+        masterPlayer = GetNode<AudioStreamPlayer>("master");
 
         // we create the first track and loop it repeatedly to keep everything in time via audioTimer. this audio is always muted
-        masterPlayer = new AudioStreamPlayer();
-        AddChild(masterPlayer);
     }
 
     public override void _Process(double delta)
@@ -30,6 +29,7 @@ public partial class AudioManager : Node
             masterPlayer.Play(); // restart
         }
         globals.audioTimer = GetAudioTime();
+
     }
 
 
