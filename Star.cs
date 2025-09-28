@@ -8,7 +8,7 @@ public partial class Star : Area2D
 {
 	public int LEADUP_SECONDS = 5;
 
-	private ChartPlayer _chartPlayer;
+	private CharterPlayer _chartPlayer;
 	private Globals globals;
 
 	PackedScene arrow = GD.Load<PackedScene>("res://arrow.tscn");

@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://cf7nyb2cb6gj7"]
+
+[ext_resource type="Script" uid="uid://c2njkmitjw3ps" path="res://CharterPlayer.cs" id="1_7b2ff"]
+[ext_resource type="Script" uid="uid://dsrodfj415tct" path="res://AudioManager.cs" id="2_h0f0g"]
+[ext_resource type="AudioStream" uid="uid://c88moigw2okru" path="res://songs/Track 1 - All Layers.wav" id="3_wymq3"]
+[ext_resource type="AudioStream" uid="uid://dkrfsdou0wh3k" path="res://songs/Track 1 - Layer 0.wav" id="4_xphnw"]
+[ext_resource type="AudioStream" uid="uid://bjhrbg2dxc017" path="res://songs/Track 1 - Layer 1.wav" id="5_l0ebc"]
+[ext_resource type="AudioStream" uid="uid://cbpuqs08saghc" path="res://songs/Track 1 - Layer 2.wav" id="6_04o8i"]
+[ext_resource type="AudioStream" uid="uid://buw4bb7irs4w3" path="res://songs/Track 1 - Layer 3.wav" id="7_if44v"]
+
+[node name="CharterPlayer" type="Node"]
+script = ExtResource("1_7b2ff")
+
+[node name="AudioManager" type="Node2D" parent="."]
+script = ExtResource("2_h0f0g")
+
+[node name="master" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("3_wymq3")
+autoplay = true
+
+[node name="Layer0" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("4_xphnw")
+autoplay = true
+
+[node name="Layer1" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("5_l0ebc")
+autoplay = true
+
+[node name="Layer2" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("6_04o8i")
+autoplay = true
+
+[node name="Layer3" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("7_if44v")
+autoplay = true

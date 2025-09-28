@@ -91,7 +91,7 @@ public static class RhythmParser
 
 
 // Player
-public partial class ChartPlayer : Node
+public partial class CharterPlayer : Node
 {
 
     private RhythmSong song;
@@ -105,6 +105,7 @@ public partial class ChartPlayer : Node
     public override void _Ready()
     {
         globals = GetNode<Globals>("/root/Globals");
+
     }
 
 
@@ -153,18 +154,19 @@ public partial class ChartPlayer : Node
         float sectionLineDuration = lineDuration / linesInSection;
 
         globals.ChartTimer += (float)delta;
-        globals.audioTimer += (float)delta;
-
-        while (globals.audioTimer + noteDelay >= sectionLineDuration && currentSection < song.Sections.Count)
+        //GD.Print($"audio timer {globals.audioTimer}");
+        //GD.Print($"section line duration {sectionLineDuration}");
+        //GD.Print($" current section{currentSection}");
+        //GD.Print($"song sections {song.Sections.Count}");
+        if (globals.audioTimer + noteDelay >= sectionLineDuration * currentSection && currentSection < song.Sections.Count)
         {
             float tempTimer = globals.audioTimer + noteDelay;
             var line = section.Lines[currentLine];
-            GD.Print($"[Player] Section {currentSection}, Line {currentLine}: {line.Notes} (offset {noteDelay}s)");
 
-            globals.ActiveStar.SpawnNote("Left", globals.audioTimer); // spawn the note earlier
+            GD.Print($"[Player] Section {currentSection}, Line {currentLine}: {line.Notes} (offset {noteDelay}s){sectionLineDuration}");
+            SpawnNotes(line.Notes);
 
             currentLine++;
-            globals.audioTimer -= sectionLineDuration;
 
             if (currentLine >= linesInSection)
             {
@@ -179,30 +181,10 @@ public partial class ChartPlayer : Node
 
     private void SpawnNotes(string notes)
     {
-        // notes is something like "1010" (left, up, right, down)
-        for (int i = 0; i < notes.Length; i++)
-        {
-            if (notes[0] == '1')
-            {
-                globals.ActiveStar.SpawnNote("Left", globals.audioTimer);
-            }
-            if (notes[1] == '1')
-            {
-                globals.ActiveStar.SpawnNote("Up", globals.audioTimer);
-            }
-            if (notes[2] == '1')
-            {
-                globals.ActiveStar.SpawnNote("Right", globals.audioTimer);
-            }
-            if (notes[3] == '1')
-            {
-                globals.ActiveStar.SpawnNote("Down", globals.audioTimer);
-            }
-        }
+        GD.Print("notes?", notes);
+        if (notes[0] == '1') globals.ActiveStar.SpawnNote("Left", globals.audioTimer);
+        if (notes[1] == '1') globals.ActiveStar.SpawnNote("Up", globals.audioTimer);
+        if (notes[2] == '1') globals.ActiveStar.SpawnNote("Right", globals.audioTimer);
+        if (notes[3] == '1') globals.ActiveStar.SpawnNote("Down", globals.audioTimer);
     }
 }
-
-
-
-
-

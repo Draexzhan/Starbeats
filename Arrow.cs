@@ -12,6 +12,7 @@ public partial class Arrow : Node2D
     {
         AnimationPlayer player = GetNode<AnimationPlayer>("AnimationPlayer");
         player.Play("Play");
+
     }
 
     public void setHitTimer(float audioTimer) {

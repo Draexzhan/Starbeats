@@ -105,7 +105,7 @@ public partial class Main : Node
 				break;
 		}
 
-		var audioManager = GetNode<AudioManager>("ChartPlayer/AudioManager");
+		var audioManager = GetNode<AudioManager>("CharterPlayer/AudioManager");
 		audioManager.InitializeStar(starnumber);
 	}
 
@@ -117,7 +117,7 @@ public partial class Main : Node
 		var song = RhythmParser.ParseFile(chartPath);
 
 		// Load song into player
-		var chartPlayer = GetNode<ChartPlayer>("ChartPlayer");
+		var chartPlayer = GetNode<CharterPlayer>("CharterPlayer");
 		chartPlayer.LoadSong(song);
 	}
 }
