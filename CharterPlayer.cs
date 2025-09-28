@@ -143,38 +143,36 @@ public partial class CharterPlayer : Node
 
 
     private float startOffset = 5f; // trigger lines 5s early
+    private float nextLineTime = 0f;
+
     public override void _Process(double delta)
     {
         if (song == null) return;
-
         if (currentSection >= song.Sections.Count) return;
 
+        globals.audioTimer += (float)delta;
+
         var section = song.Sections[currentSection];
-        int linesInSection = section.Lines.Count;
-        float sectionLineDuration = lineDuration / linesInSection;
+        float sectionLineDuration = lineDuration / section.Lines.Count;
 
-        globals.ChartTimer += (float)delta;
-        //GD.Print($"audio timer {globals.audioTimer}");
-        //GD.Print($"section line duration {sectionLineDuration}");
-        //GD.Print($" current section{currentSection}");
-        //GD.Print($"song sections {song.Sections.Count}");
-        if (globals.audioTimer + noteDelay >= sectionLineDuration * currentSection && currentSection < song.Sections.Count)
+        // Trigger next line only when it's time
+        if (globals.audioTimer + noteDelay >= nextLineTime)
         {
-            float tempTimer = globals.audioTimer + noteDelay;
             var line = section.Lines[currentLine];
+            GD.Print($"[Player] Section {currentSection}, Line {currentLine}: {line.Notes}");
 
-            GD.Print($"[Player] Section {currentSection}, Line {currentLine}: {line.Notes} (offset {noteDelay}s){sectionLineDuration}");
             SpawnNotes(line.Notes);
 
             currentLine++;
+            GD.Print(nextLineTime);
+            nextLineTime += sectionLineDuration; // schedule next line
 
-            if (currentLine >= linesInSection)
+            // Move to next section
+            if (currentLine >= section.Lines.Count)
             {
                 currentLine = 0;
                 currentSection++;
-
-                if (currentSection < song.Sections.Count)
-                    section = song.Sections[currentSection];
+                nextLineTime = globals.audioTimer + noteDelay; // reset for next section
             }
         }
     }
