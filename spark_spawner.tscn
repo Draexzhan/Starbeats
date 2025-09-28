@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl0o40pen04se"]
+
+[ext_resource type="Script" uid="uid://dsv3tgem81o7u" path="res://SparkSpawner.cs" id="1_7guwf"]
+[ext_resource type="PackedScene" uid="uid://chcvj7r855qu0" path="res://sparkTest.tscn" id="2_dshsc"]
+[ext_resource type="Script" uid="uid://f0eu8btppagm" path="res://Spark.cs" id="3_dshsc"]
+[ext_resource type="PackedScene" uid="uid://divuqjtbrhm4s" path="res://shadertest.tscn" id="3_epglq"]
+
+[node name="SparkSpawner" type="Node2D"]
+script = ExtResource("1_7guwf")
+
+[node name="Spark" parent="." instance=ExtResource("2_dshsc")]
+script = ExtResource("3_dshsc")
+
+[node name="Ray" parent="." instance=ExtResource("3_epglq")]
