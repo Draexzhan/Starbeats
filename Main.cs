@@ -90,33 +90,31 @@ public partial class Main : Node
 				GD.Print("Right!");
 		}
 	}
+
 	public void InitializeStar(int starnumber)
 	{
-		if (starnumber == 0)
+		switch (starnumber)
 		{
-			StartChart("res://songs/test.txt");
-			var song = GetNode<AudioStreamPlayer>("ChartPlayer/CollectMyAudios/Layer0");
-			GetNode<AudioManager>("ChartPlayer").FadeIn(song, 3f);
+			case 0:
+				StartChart("res://songs/test.txt");
+				break;
+			case 1:
+				StartChart("res://songs/test.txt");
+				break;
+			case 2:
+				StartChart("res://songs/test.txt");
+				break;
+			case 3:
+				StartChart("res://songs/test.txt");
+				break;
+			default:
+				break;
 		}
-		else if (starnumber == 1)
-		{
-			StartChart("res://songs/test.txt");
-			var song = GetNode<AudioStreamPlayer>("ChartPlayer/CollectMyAudios/Layer1");
-			GetNode<AudioManager>("ChartPlayer").FadeIn(song, 3f);
-		}
-		else if (starnumber == 2)
-		{
-			StartChart("res://songs/test.txt");
-			var song = GetNode<AudioStreamPlayer>("ChartPlayer/CollectMyAudios/Layer2");
-			GetNode<AudioManager>("ChartPlayer").FadeIn(song, 3f);
-		}
-		else if (starnumber == 3)
-		{
-			StartChart("res://songs/test.txt");
-			var song = GetNode<AudioStreamPlayer>("ChartPlayer/CollectMyAudios/Layer3");
-			GetNode<AudioManager>("ChartPlayer").FadeIn(song, 3f);
-		}
+
+		var audioManager = GetNode<AudioManager>("ChartPlayer/AudioManager");
+		audioManager.InitializeStar(starnumber);
 	}
+
 	public void StartChart(string chartPath)
 	{
 		GD.Print($"[Main] Starting chart: {chartPath}");
