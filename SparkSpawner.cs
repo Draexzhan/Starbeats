@@ -5,14 +5,18 @@ public partial class SparkSpawner : Node2D
 {
 	[Export]
 	public PackedScene SparkScene { get; set; }
+	
+	[Export]
 	public PackedScene RayScene { get; set; }
-	private float heatScale;
+	
+	public float heatScale;
 
 	public override void _Ready()
 	{
 		base._Ready();
-		//SpawnRays();
+		SpawnRays();
 		GetNode<Sprite2D>("Sun").Scale = new Vector2(0.4f, 0.4f);
+		Scale = new Vector2(0.4f, 0.4f);
 	}
 
 	public void SpawnRays()
@@ -20,7 +24,7 @@ public partial class SparkSpawner : Node2D
 		for (int i = 0; i < 3; i++)
 		{
 			//Creating new rays
-			Ray newRay = (Ray)RayScene.Instantiate<Sprite2D>();
+			SunRay newRay = RayScene.Instantiate<SunRay>();
 
 			//choose rotation direction and speed
 			float rotation = (float)GD.RandRange(0.0, 1.0) - 1.5f + i;
@@ -29,16 +33,16 @@ public partial class SparkSpawner : Node2D
 		}
 	}
 
-	public void SpawnSparks()
+	public void SpawnSparks(int quantity)
 	{
-		for (int i = 0; i < 12; i++)
+		for (int i = 0; i < quantity; i++)
 		{
 			//creating new sparks
-			Spark newSpark = (Spark)SparkScene.Instantiate<Sprite2D>();
+			Spark newSpark = SparkScene.Instantiate<Spark>();
 
 			//choosing their direction and speed
-			float direction = i * Mathf.Pi / 6 + (float)GD.RandRange(0.0, 2.0);
-			Vector2 velocity = new Vector2((float)GD.RandRange(50.0, 300.0), 0);
+			float direction = i * Mathf.Pi / (quantity / 2.0f) + (float)GD.RandRange(0.0, 2.0);
+			Vector2 velocity = new Vector2((float)GD.RandRange(0.1, 2.0), 0);
 
 			//assigning this vector
 			newSpark.LinearVelocity = velocity.Rotated(direction);
@@ -47,6 +51,11 @@ public partial class SparkSpawner : Node2D
 	}
 	public override void _Process(double delta)
 	{
-		Scale += new Vector2((float)delta/6, (float)delta/6);
+		Scale += new Vector2((float)delta/10, (float)delta/10);
+		SetInstanceShaderParameter("heat", Scale.X);
+	}
+	public override void _Input(InputEvent @event)
+	{
+		SpawnSparks(3);
 	}
 }

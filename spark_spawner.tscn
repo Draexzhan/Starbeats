@@ -1,27 +1,22 @@
-[gd_scene load_steps=9 format=3 uid="uid://dl0o40pen04se"]
+[gd_scene load_steps=7 format=3 uid="uid://dl0o40pen04se"]
 
 [ext_resource type="Script" uid="uid://dsv3tgem81o7u" path="res://SparkSpawner.cs" id="1_7guwf"]
 [ext_resource type="Shader" uid="uid://i05e27sta0hv" path="res://sunShader.gdshader" id="1_nl6pg"]
 [ext_resource type="PackedScene" uid="uid://chcvj7r855qu0" path="res://sparkTest.tscn" id="2_dshsc"]
-[ext_resource type="Script" uid="uid://f0eu8btppagm" path="res://Spark.cs" id="3_dshsc"]
-[ext_resource type="PackedScene" uid="uid://divuqjtbrhm4s" path="res://shadertest.tscn" id="3_epglq"]
-[ext_resource type="Script" uid="uid://ce36f8fr5bxdd" path="res://Ray.cs" id="6_q1khi"]
+[ext_resource type="PackedScene" uid="uid://tdy2k7684kic" path="res://ray.tscn" id="4_epglq"]
 [ext_resource type="Texture2D" uid="uid://dafr51u66iwa8" path="res://Assets/Sun.png" id="7_eqay0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p87o2"]
 shader = ExtResource("1_nl6pg")
+shader_parameter/heats = 0.0
 
 [node name="SparkSpawner" type="Node2D"]
 material = SubResource("ShaderMaterial_p87o2")
 position = Vector2(920.485, 511.718)
 script = ExtResource("1_7guwf")
-
-[node name="Spark" parent="." instance=ExtResource("2_dshsc")]
-script = ExtResource("3_dshsc")
-
-[node name="Ray" parent="." instance=ExtResource("3_epglq")]
-position = Vector2(1, -2)
-script = ExtResource("6_q1khi")
+SparkScene = ExtResource("2_dshsc")
+RayScene = ExtResource("4_epglq")
 
 [node name="Sun" type="Sprite2D" parent="."]
+use_parent_material = true
 texture = ExtResource("7_eqay0")

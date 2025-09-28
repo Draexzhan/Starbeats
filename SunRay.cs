@@ -1,7 +1,8 @@
 using Godot;
 using System;
 
-public partial class Ray : Sprite2D
+public partial class SunRay : Sprite2D
 {
+	[Export]
 	public float rotSpeed;
 }

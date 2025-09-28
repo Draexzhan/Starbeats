@@ -1,3 +1,7 @@
-[gd_scene format=3 uid="uid://tdy2k7684kic"]
+[gd_scene load_steps=2 format=3 uid="uid://tdy2k7684kic"]
+
+[ext_resource type="Script" uid="uid://ce36f8fr5bxdd" path="res://SunRay.cs" id="1_hwms0"]
 
 [node name="Ray" type="Sprite2D"]
+use_parent_material = true
+script = ExtResource("1_hwms0")
