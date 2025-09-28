@@ -3,30 +3,32 @@ using System;
 
 public partial class Arrow : Node2D
 {
+
+    public static float PREP_TIME_SECONDS = 5f;
+    public float hitTime = 0f;
+    public string direction;
+
     public override void _Ready()
     {
         AnimationPlayer player = GetNode<AnimationPlayer>("AnimationPlayer");
         player.Play("Play");
     }
 
-    public void SetDirection(string direction)
+    public void setHitTimer(float audioTimer) {
+        hitTime = audioTimer + PREP_TIME_SECONDS;
+    }
+
+    public void SetDirection(string dir)
     {
-        if (direction == "Up")
+        direction = dir;
+        RotationDegrees = direction switch
         {
-            RotationDegrees = 0;
-        }
-        else if (direction == "Right")
-        {
-            RotationDegrees = 90;
-        }
-        else if (direction == "Down")
-        {
-            RotationDegrees = 180;
-        }
-        else if (direction == "Left")
-        {
-            RotationDegrees = 270;
-        }
+            "Up" => 0,
+            "Right" => 90,
+            "Down" => 180,
+            "Left" => 270,
+            _ => 0,
+        };
     }
 
     private void OnAnimationPlayerAnimationFinished(StringName animName)

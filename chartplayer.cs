@@ -161,7 +161,7 @@ public partial class ChartPlayer : Node
             var line = section.Lines[currentLine];
             GD.Print($"[Player] Section {currentSection}, Line {currentLine}: {line.Notes} (offset {noteDelay}s)");
 
-            globals.ActiveStar.SpawnNote("Left"); // spawn the note earlier
+            globals.ActiveStar.SpawnNote("Left", globals.audioTimer); // spawn the note earlier
 
             currentLine++;
             globals.audioTimer -= sectionLineDuration;
@@ -184,19 +184,19 @@ public partial class ChartPlayer : Node
         {
             if (notes[0] == '1')
             {
-                globals.ActiveStar.SpawnNote("Left");
+                globals.ActiveStar.SpawnNote("Left", globals.audioTimer);
             }
             if (notes[1] == '1')
             {
-                globals.ActiveStar.SpawnNote("Up");
+                globals.ActiveStar.SpawnNote("Up", globals.audioTimer);
             }
             if (notes[2] == '1')
             {
-                globals.ActiveStar.SpawnNote("Right");
+                globals.ActiveStar.SpawnNote("Right", globals.audioTimer);
             }
             if (notes[3] == '1')
             {
-                globals.ActiveStar.SpawnNote("Down");
+                globals.ActiveStar.SpawnNote("Down", globals.audioTimer);
             }
         }
     }
