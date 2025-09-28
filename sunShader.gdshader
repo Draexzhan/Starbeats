@@ -1,12 +1,12 @@
 shader_type canvas_item;
-uniform float heats;
+uniform float heat;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
 }
 
-vec4 newColor(float oldTone, float heat) {
-	return (vec4( cos(heat * PI)/7.0 + 0.5 + heat/4.0, sin(heat * PI/3.0) * 0.9 + 0.2, heat, 1.0));
+vec4 newColor(float oldTone) {
+	return (vec4( cos(heat * PI)/7.0 + 0.5 + heat/4.0, sin(heat * PI/3.0) * 0.9 + 0.2, heat, 1.0) * oldTone);
 }
 
 void fragment() {
@@ -14,7 +14,7 @@ void fragment() {
 	float RedTones = COLOR.r;
 	float BlueTones = COLOR.b;
 	float Alpha = COLOR.a;
-	COLOR = vec4(newColor(RedTones, heats) + newColor(BlueTones, heats));
+	COLOR = vec4(newColor(RedTones) + newColor(BlueTones));
 	COLOR.a = Alpha;
 }
 

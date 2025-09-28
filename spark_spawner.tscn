@@ -8,7 +8,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p87o2"]
 shader = ExtResource("1_nl6pg")
-shader_parameter/heats = 0.0
+shader_parameter/heat = 0.0
 
 [node name="SparkSpawner" type="Node2D"]
 material = SubResource("ShaderMaterial_p87o2")
@@ -18,5 +18,6 @@ SparkScene = ExtResource("2_dshsc")
 RayScene = ExtResource("4_epglq")
 
 [node name="Sun" type="Sprite2D" parent="."]
+z_index = 1
 use_parent_material = true
 texture = ExtResource("7_eqay0")
