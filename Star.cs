@@ -6,16 +6,17 @@ using System.Threading;
 
 public partial class Star : Area2D
 {
-	public int LEADUP_SECONDS = 5;
-
 	private CharterPlayer _chartPlayer;
 	private Globals globals;
+	private Label label;
 
 	PackedScene arrow = GD.Load<PackedScene>("res://arrow.tscn");
 
 	public override void _Ready()
 	{
 		globals = GetNode<Globals>("/root/Globals");
+		label = GetNode<Label>("Control/Label");
+
 	}
 
 	public void SpawnNote(string inputKey, float timing)
@@ -46,6 +47,7 @@ public partial class Star : Area2D
 	Arrow GetNote(string direction)
 	{
 		var children = GetChildren();
+		GD.Print("CHILD COUNT: ", GetChildCount());
 		Arrow arrow = children.FirstOrDefault(child => child is Arrow arrow && arrow.direction == direction, null) as Arrow;
 		return arrow;
 	}
@@ -53,11 +55,32 @@ public partial class Star : Area2D
 	void GradeNoteHit(Arrow arrow)
 	{
 		var rawGrade = arrow.hitTime - globals.audioTimer;
-		var absGrade = Math.Abs(rawGrade);
+
 		if (rawGrade < 0.5)
 		{
+			label.Text = DisplayGrade(rawGrade);
 			arrow.QueueFree();
 		}
-		GD.Print("HIT :: ", rawGrade < 0 ? "LATE" : "EARLY", absGrade);
+		else
+		{
+			label.Text = "";
+		}
+	}
+
+	string DisplayGrade(float rawGrade)
+	{
+		var absGrade = Math.Abs(rawGrade);
+		var msOff = Math.Round(absGrade * 100);
+
+		var grade = msOff switch
+		{
+			< 8 => "PERFECT",
+			< 16 => "GOOD",
+			< 32 => "OK",
+			_ => "BAD",
+		};
+		var lateOrEarly = rawGrade < 0 ? "late" : "early";
+		var guide = $"{lateOrEarly} {msOff}ms";
+		return $"{grade} ({guide})";
 	}
 }

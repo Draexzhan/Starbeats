@@ -4,7 +4,7 @@ using System;
 public partial class Arrow : Node2D
 {
 
-    public static float PREP_TIME_SECONDS = 5f;
+    public static float PREP_TIME_SECONDS = 2f;
     public float hitTime = 0f;
     public string direction;
 

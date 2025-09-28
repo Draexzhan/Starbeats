@@ -100,7 +100,7 @@ public partial class CharterPlayer : Node
     private int currentLine = 0;
     private float lineDuration = 0f;
 
-    private float noteDelay = -5f;
+    private float noteDelay = -Arrow.PREP_TIME_SECONDS;
 
     public override void _Ready()
     {
@@ -141,10 +141,7 @@ public partial class CharterPlayer : Node
         GD.Print($"[Player] Starting at Section {currentSection}, Line {currentLine}, Time {globals.audioTimer}s");
     }
 
-
-    private float startOffset = 5f; // trigger lines 5s early
     private float nextLineTime = 0f;
-
     public override void _Process(double delta)
     {
         if (song == null) return;
