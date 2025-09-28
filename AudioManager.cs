@@ -35,25 +35,14 @@ public partial class AudioManager : Node
 
 	public void InitializeStar(int starnumber)
 	{
-		AudioStreamPlayer song;
-        switch (starnumber)
-		{
-			case 0:
-                song = GetNode<AudioStreamPlayer>("Layer0");
-				break;
-			case 1:
-                song = GetNode<AudioStreamPlayer>("Layer1");
-				break;
-			case 2:
-                song = GetNode<AudioStreamPlayer>("Layer2");
-				break;
-			case 3:
-                song = GetNode<AudioStreamPlayer>("Layer3");
-				break;
-			default:
-                song = GetNode<AudioStreamPlayer>("error, no star to initialize"); // just here for typesafety
-				break;
-		}
+		AudioStreamPlayer song = starnumber switch
+        {
+            0 => GetNode<AudioStreamPlayer>("Layer0"),
+            1 => GetNode<AudioStreamPlayer>("Layer1"),
+            2 => GetNode<AudioStreamPlayer>("Layer2"),
+            3 => GetNode<AudioStreamPlayer>("Layer3"),
+            _ => GetNode<AudioStreamPlayer>("error, invalid star number!"),
+        };
 
 		FadeIn(song, 3f);
 	}

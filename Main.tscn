@@ -4,7 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://cua7qyvwjvg32" path="res://Assets/placeholderbg.png" id="2_cm0pq"]
 [ext_resource type="Texture2D" uid="uid://biqnyl52q1of7" path="res://Assets/handshake.png" id="3_cm0pq"]
 [ext_resource type="PackedScene" uid="uid://c2fcawnqfa3wy" path="res://star.tscn" id="4_3dxm6"]
+<<<<<<< HEAD
 [ext_resource type="Script" uid="uid://d3kqto2hduc2h" path="res://ChartPlayer.cs" id="6_3dxm6"]
+=======
+[ext_resource type="Script" uid="uid://c45cuavf54nc7" path="res://ChartPlayer.cs" id="6_3dxm6"]
+>>>>>>> dd994d989849a29dc2e5b287355123f440a98b8c
 [ext_resource type="Script" uid="uid://dsrodfj415tct" path="res://AudioManager.cs" id="6_5vvyt"]
 [ext_resource type="Script" uid="uid://dn3vtt8r0u2ya" path="res://HitKeyEmitter.cs" id="6_lgr22"]
 [ext_resource type="AudioStream" uid="uid://c88moigw2okru" path="res://songs/Track 1 - All Layers.wav" id="7_20pc6"]
@@ -68,7 +72,6 @@ _data = {
 
 [node name="Main" type="Node"]
 script = ExtResource("1_r0du0")
-Star = ExtResource("4_3dxm6")
 
 [node name="Background" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.21568628)
