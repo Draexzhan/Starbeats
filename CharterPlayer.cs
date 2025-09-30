@@ -6,87 +6,87 @@ using System.Threading.Tasks;
 // Beat line
 public class BeatLine
 {
-    public string Notes; // e.g., "1010"
-    public BeatLine(string notes) => Notes = notes;
+	public string Notes; // e.g., "1010"
+	public BeatLine(string notes) => Notes = notes;
 }
 
 // Section (measure)
 public class RhythmSection
 {
-    public List<BeatLine> Lines = new List<BeatLine>();
+	public List<BeatLine> Lines = new List<BeatLine>();
 }
 
 // Song
 public class RhythmSong
 {
-    public float BPM;
-    public List<RhythmSection> Sections = new List<RhythmSection>();
+	public float BPM;
+	public List<RhythmSection> Sections = new List<RhythmSection>();
 }
 
 // Parser
 public static class RhythmParser
 {
-    public static RhythmSong ParseFile(string path)
-    {
-        var song = new RhythmSong();
-        var section = new RhythmSection();
+	public static RhythmSong ParseFile(string path)
+	{
+		var song = new RhythmSong();
+		var section = new RhythmSection();
 
-        // Open the file using Godot's FileAccess
-        using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
-        if (file == null)
-        {
-            GD.PrintErr($"[Parser] Failed to open file at {path}");
-            return song;
-        }
+		// Open the file using Godot's FileAccess
+		using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+		if (file == null)
+		{
+			GD.PrintErr($"[Parser] Failed to open file at {path}");
+			return song;
+		}
 
-        GD.Print($"[Parser] Successfully opened file.");
+		GD.Print($"[Parser] Successfully opened file.");
 
-        while (!file.EofReached())
-        {
-            string line = file.GetLine().Trim();
+		while (!file.EofReached())
+		{
+			string line = file.GetLine().Trim();
 
-            if (string.IsNullOrEmpty(line))
-            {
-                continue;
-            }
+			if (string.IsNullOrEmpty(line))
+			{
+				continue;
+			}
 
-            if (line.StartsWith("--"))
-            {
-                if (section.Lines.Count > 0)
-                {
-                    song.Sections.Add(section);
-                    section = new RhythmSection();
-                }
-                continue;
-            }
+			if (line.StartsWith("--"))
+			{
+				if (section.Lines.Count > 0)
+				{
+					song.Sections.Add(section);
+					section = new RhythmSection();
+				}
+				continue;
+			}
 
-            // BPM line
-            if (line.StartsWith("BPM:"))
-            {
-                if (float.TryParse(line.Substring(4), out float bpm))
-                {
-                    song.BPM = bpm;
-                    GD.Print($"[Parser] BPM set to {song.BPM}");
-                }
-                else
-                {
-                    GD.PrintErr($"[Parser] Failed to parse BPM from line: {line}");
-                }
-                continue;
-            }
+			// BPM line
+			if (line.StartsWith("BPM:"))
+			{
+				if (float.TryParse(line.Substring(4), out float bpm))
+				{
+					song.BPM = bpm;
+					GD.Print($"[Parser] BPM set to {song.BPM}");
+				}
+				else
+				{
+					GD.PrintErr($"[Parser] Failed to parse BPM from line: {line}");
+				}
+				continue;
+			}
 
-            section.Lines.Add(new BeatLine(line));
-        }
+			section.Lines.Add(new BeatLine(line));
+		}
 
-        // Add final section if it has lines
-        if (section.Lines.Count > 0)
-        {
-            song.Sections.Add(section);
-        }
+		// Add final section if it has lines
+		if (section.Lines.Count > 0)
+		{
+			song.Sections.Add(section);
+		}
 
-        GD.Print($"[Parser] Done. Total sections: {song.Sections.Count}");
-        return song;
-    }
+		GD.Print($"[Parser] Done. Total sections: {song.Sections.Count}");
+		return song;
+	}
 }
 
 
@@ -94,92 +94,92 @@ public static class RhythmParser
 public partial class CharterPlayer : Node
 {
 
-    private RhythmSong song;
-    private Globals globals;
-    private int currentSection = 0;
-    private int currentLine = 0;
-    private float lineDuration = 0f;
+	private RhythmSong song;
+	private Globals globals;
+	private int currentSection = 0;
+	private int currentLine = 0;
+	private float lineDuration = 0f;
 
-    private float noteDelay = -Arrow.PREP_TIME_SECONDS;
+	private float noteDelay = -Arrow.PREP_TIME_SECONDS;
 
-    public override void _Ready()
-    {
-        globals = GetNode<Globals>("/root/Globals");
+	public override void _Ready()
+	{
+		globals = GetNode<Globals>("/root/Globals");
 
-    }
+	}
 
 
-    public void LoadSong(RhythmSong newSong)
-    {
-        song = newSong;
+	public void LoadSong(RhythmSong newSong)
+	{
+		song = newSong;
 
-        // duration of 1 full beat (in seconds)
-        lineDuration = 60f / song.BPM * 4;
+		// duration of 1 full beat (in seconds)
+		lineDuration = 60f / song.BPM * 4; //line duration measure length?
 
-        float accumulated = 0f;
-        currentSection = 0;
-        currentLine = 0;
+		float accumulated = 0f;
+		currentSection = 0;
+		currentLine = 0;
 
-        for (int s = 0; s < song.Sections.Count; s++)
-        {
-            var section = song.Sections[s];
-            float sectionLineDuration = lineDuration / section.Lines.Count;
-            float linesDuration = section.Lines.Count * sectionLineDuration;
+		for (int s = 0; s < song.Sections.Count; s++)
+		{
+			var section = song.Sections[s];
+			float sectionLineDuration = lineDuration / section.Lines.Count;
+			float linesDuration = section.Lines.Count * sectionLineDuration;
 
-            if (accumulated + linesDuration > globals.audioTimer)
-            {
-                currentSection = s;
-                int lineIndex = (int)((globals.audioTimer - accumulated) / sectionLineDuration);
-                currentLine = Mathf.Clamp(lineIndex, 0, section.Lines.Count - 1);
-                break;
-            }
+			if (accumulated + linesDuration > globals.audioTimer)
+			{
+				currentSection = s;
+				int lineIndex = (int)((globals.audioTimer - accumulated) / sectionLineDuration);
+				currentLine = Mathf.Clamp(lineIndex, 0, section.Lines.Count - 1);
+				break;
+			}
 
-            accumulated += linesDuration;
-        }
+			accumulated += linesDuration;
+		}
 
-        GD.Print($"[Player] Song loaded. BPM={song.BPM}, Sections={song.Sections.Count}, LineDuration={lineDuration}s per beat");
-        GD.Print($"[Player] Starting at Section {currentSection}, Line {currentLine}, Time {globals.audioTimer}s");
-    }
+		GD.Print($"[Player] Song loaded. BPM={song.BPM}, Sections={song.Sections.Count}, LineDuration={lineDuration}s per beat");
+		GD.Print($"[Player] Starting at Section {currentSection}, Line {currentLine}, Time {globals.audioTimer}s");
+	}
 
-    private float nextLineTime = 0f;
-    public override void _Process(double delta)
-    {
-        if (song == null) return;
-        if (currentSection >= song.Sections.Count) return;
+	private float nextLineTime = 0f;
+	public override void _Process(double delta)
+	{
+		if (song == null) return;
+		if (currentSection >= song.Sections.Count) return;
 
-        globals.audioTimer += (float)delta;
+		globals.audioTimer += (float)delta;
 
-        var section = song.Sections[currentSection];
-        float sectionLineDuration = lineDuration / section.Lines.Count;
+		var section = song.Sections[currentSection];
+		float sectionLineDuration = lineDuration / section.Lines.Count;
 
-        // Trigger next line only when it's time
-        if (globals.audioTimer + noteDelay >= nextLineTime)
-        {
-            var line = section.Lines[currentLine];
-            GD.Print($"[Player] Section {currentSection}, Line {currentLine}: {line.Notes}");
+		// Trigger next line only when it's time
+		if (globals.audioTimer + noteDelay >= nextLineTime)
+		{
+			var line = section.Lines[currentLine];
+			GD.Print($"[Player] Section {currentSection}, Line {currentLine}: {line.Notes}");
 
-            SpawnNotes(line.Notes);
+			SpawnNotes(line.Notes);
 
-            currentLine++;
-            GD.Print(nextLineTime);
-            nextLineTime += sectionLineDuration; // schedule next line
+			currentLine++;
 
-            // Move to next section
-            if (currentLine >= section.Lines.Count)
-            {
-                currentLine = 0;
-                currentSection++;
-                nextLineTime = globals.audioTimer + noteDelay; // reset for next section
-            }
-        }
-    }
+			// Move to next section
+			if (currentLine >= section.Lines.Count)
+			{
+				currentLine = 0;
+				currentSection++;
+				nextLineTime = globals.audioTimer + noteDelay; // reset for next section
+			}
+			GD.Print(nextLineTime);
+			nextLineTime += sectionLineDuration; // schedule next line
+		}
+	}
 
-    private void SpawnNotes(string notes)
-    {
-        GD.Print("notes?", notes);
-        if (notes[0] == '1') globals.ActiveStar.SpawnNote("Left", globals.audioTimer);
-        if (notes[1] == '1') globals.ActiveStar.SpawnNote("Up", globals.audioTimer);
-        if (notes[2] == '1') globals.ActiveStar.SpawnNote("Right", globals.audioTimer);
-        if (notes[3] == '1') globals.ActiveStar.SpawnNote("Down", globals.audioTimer);
-    }
+	private void SpawnNotes(string notes)
+	{
+		GD.Print("notes?", notes);
+		if (notes[0] == '1') globals.ActiveStar.SpawnNote("Left", globals.audioTimer);
+		if (notes[1] == '1') globals.ActiveStar.SpawnNote("Up", globals.audioTimer);
+		if (notes[2] == '1') globals.ActiveStar.SpawnNote("Right", globals.audioTimer);
+		if (notes[3] == '1') globals.ActiveStar.SpawnNote("Down", globals.audioTimer);
+	}
 }

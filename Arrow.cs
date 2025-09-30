@@ -4,45 +4,45 @@ using System;
 public partial class Arrow : Node2D
 {
 
-    public static float PREP_TIME_SECONDS = 2f;
-    public float hitTime = 0f;
-    public string direction;
-    AnimationPlayer player;
+	public static float PREP_TIME_SECONDS = 2f;
+	public float hitTime = 0f;
+	public string direction;
+	AnimationPlayer player;
 
 
-    public override void _Ready()
-    {
-        player = GetNode<AnimationPlayer>("AnimationPlayer");
-        player.Play("Play");
+	public override void _Ready()
+	{
+		player = GetNode<AnimationPlayer>("AnimationPlayer");
+		player.Play("Play");
 
-    }
+	}
 
-    public void setHitTimer(float audioTimer)
-    {
-        hitTime = audioTimer + PREP_TIME_SECONDS;
-    }
+	public void setHitTimer(float audioTimer)
+	{
+		hitTime = audioTimer + PREP_TIME_SECONDS;
+	}
 
-    public void SetDirection(string dir)
-    {
-        direction = dir;
-        RotationDegrees = direction switch
-        {
-            "Up" => 0,
-            "Right" => 90,
-            "Down" => 180,
-            "Left" => 270,
-            _ => 0,
-        };
-    }
+	public void SetDirection(string dir)
+	{
+		direction = dir;
+		RotationDegrees = direction switch
+		{
+			"Up" => 0,
+			"Right" => 90,
+			"Down" => 180,
+			"Left" => 270,
+			_ => 0,
+		};
+	}
 
-    private void OnAnimationPlayerAnimationFinished(StringName animName)
-    {
-        QueueFree();
-    }
+	private void OnAnimationPlayerAnimationFinished(StringName animName)
+	{
+		QueueFree();
+	}
 
-    public void Hit()
-    {
-        player.Stop();
-        QueueFree();
-    }
+	public void Hit()
+	{
+		player.Stop();
+		QueueFree();
+	}
 }

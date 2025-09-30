@@ -19,7 +19,7 @@ public partial class Star : Area2D
 
 	}
 
-	public void SpawnNote(string inputKey, float timing)
+	public void SpawnNote(string inputKey, float timing = 0)
 	{
 		Arrow a = arrow.Instantiate<Arrow>();
 		AddChild(a);
