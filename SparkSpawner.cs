@@ -14,7 +14,7 @@ public partial class SparkSpawner : Node2D
 	public override void _Ready()
 	{
 		base._Ready();
-		GetNode<Sprite2D>("Sun").Scale = new Vector2(0.4f, 0.4f);
+		GetNode<Sprite2D>("Sun").Scale = new Vector2(0.1f, 0.1f);
 		SpawnRays();
 		Scale = new Vector2(0.4f, 0.4f);
 	}
@@ -48,15 +48,11 @@ public partial class SparkSpawner : Node2D
 			newSpark.LinearVelocity = velocity.Rotated(direction);
 			AddChild(newSpark);
 		}
-	}
-	public override void _Process(double delta)
-	{
-		Scale += new Vector2((float)delta / 10, (float)delta / 10);
+		Scale += new Vector2((float)quantity / 1000, (float)quantity / 1000);
 		((ShaderMaterial)Material).SetShaderParameter("heat", Scale.X - 0.4);
 		GD.Print(Scale.X.ToString());
 	}
-	public override void _Input(InputEvent @event)
+	public override void _Process(double delta)
 	{
-		SpawnSparks(3);
 	}
 }

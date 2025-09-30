@@ -1,14 +1,19 @@
 using Godot;
 using System;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 
 
 public partial class Star : Area2D
 {
+	[Export]
+	public PackedScene Sun { get; set; }
+
 	private CharterPlayer _chartPlayer;
 	private Globals globals;
 	private Label label;
+	private SparkSpawner OurSun;
 
 	PackedScene arrow = GD.Load<PackedScene>("res://arrow.tscn");
 
@@ -16,6 +21,7 @@ public partial class Star : Area2D
 	{
 		globals = GetNode<Globals>("/root/Globals");
 		label = GetNode<Label>("Control/Label");
+		OurSun = Sun.Instantiate<SparkSpawner>();
 
 	}
 
@@ -79,6 +85,15 @@ public partial class Star : Area2D
 			< 120 => "OK",
 			_ => "BAD",
 		};
+		int sparkQuantity = grade switch
+		{
+			"PERFECT" => 12,
+			"GOOD" => 6,
+			"OKAY" => 1,
+			"BAD" => 0,
+			_ => 0
+		};
+		OurSun.SpawnSparks(sparkQuantity);
 		var lateOrEarly = rawGrade < 0 ? "late" : "early";
 		var guide = $"{lateOrEarly} {msOff}ms";
 		return $"{grade} ({guide})";
