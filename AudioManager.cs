@@ -86,6 +86,7 @@ public partial class AudioManager : Node
 	{
 		layer.VolumeDb = -80f; // Start silent
 		layer.Play();
+		GD.Print(layer.Name);
 
 		float startTime = 0f;
 		float targetVolume = 0f; // 0 dB = full volume

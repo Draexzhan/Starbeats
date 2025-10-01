@@ -22,7 +22,17 @@ public partial class Star : Area2D
 		globals = GetNode<Globals>("/root/Globals");
 		label = GetNode<Label>("Control/Label");
 		OurSun = Sun.Instantiate<SparkSpawner>();
+		var btn = GetNode<TextureButton>("TextureButton");
+        btn.ButtonDown += OnClicked;
 
+	}
+	public static Star LastClicked; // tracks the most recent star clicked on to start rhythm game
+	public bool Clicked = false;
+
+	public void OnClicked()
+	{
+		Clicked = true;
+		LastClicked = this; // mark this one as the last clicked
 	}
 
 	public void SpawnNote(string inputKey, float timing = 0)

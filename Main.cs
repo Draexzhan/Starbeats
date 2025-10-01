@@ -28,16 +28,7 @@ public partial class Main : Node
 		_camera = GetNode<Camera2D>("Camera2D");
 
 		//placeholder for getting and playing chart
-		StartChart("res://songs/test.txt");
-	}
-
-	private void OnHitKey()
-	{
-
-		//when star is pressed, trigger rhythm sequence
-		GD.Print("Main received a star click!");
-		currentState = (int)GameState.Rhythm;
-		InitializeStar(1);
+		//StartChart("res://songs/test.txt");
 	}
 
 	public override void _Input(InputEvent @event)
@@ -66,9 +57,10 @@ public partial class Main : Node
 		// Other input logic
 		if (@event is InputEventMouseButton clickEvent && clickEvent.Pressed)
 		{
+			if (currentState == (int)GameState.Rhythm)
+   				return;
 			GD.Print("Click!");
-			currentState = (int)GameState.Rhythm;
-			InitializeStar(1);
+			GetStar();
 		}
 
 		// Rhythm game inputs
@@ -93,7 +85,7 @@ public partial class Main : Node
 				StartChart("res://songs/test.txt");
 				break;
 			case 1:
-				StartChart("res://songs/test.txt");
+				StartChart("res://songs/Layer1.txt");
 				break;
 			case 2:
 				StartChart("res://songs/test.txt");
@@ -119,5 +111,41 @@ public partial class Main : Node
 		// Load song into player
 		var chartPlayer = GetNode<CharterPlayer>("CharterPlayer");
 		chartPlayer.LoadSong(song);
+	}
+	public void GetStar()
+	{
+		
+		var lastStar = Star.LastClicked;
+		int starValue = 5;
+		if (lastStar != null)
+		{
+			if (lastStar.Name == "LefttStar")
+			{
+				starValue = 0;
+				globals.ActiveStar = GetNode<Star>("Constellation/LeftStar");
+			}
+			else if (lastStar.Name == "UpStar")
+			{
+				starValue = 1;
+				globals.ActiveStar = GetNode<Star>("Constellation/UpStar");
+			}
+			else if (lastStar.Name == "RightStar")
+			{
+				starValue = 2;
+				globals.ActiveStar = GetNode<Star>("Constellation/RightStar");
+			}
+			else if (lastStar.Name == "DownStar")
+			{
+				starValue = 3;
+				globals.ActiveStar = GetNode<Star>("Constellation/DownStar");
+			}
+			else
+			{
+				GD.Print("star not clicked");
+				return;
+			}
+			currentState = (int)GameState.Rhythm;
+			InitializeStar(starValue);
+		}
 	}
 }

@@ -16,16 +16,25 @@ script = ExtResource("2_h0f0g")
 
 [node name="master" type="AudioStreamPlayer" parent="AudioManager"]
 stream = ExtResource("3_h0f0g")
+volume_db = -80.0
 autoplay = true
 
 [node name="Layer0" type="AudioStreamPlayer" parent="AudioManager"]
 stream = ExtResource("4_xphnw")
+volume_db = -80.0
+autoplay = true
 
 [node name="Layer1" type="AudioStreamPlayer" parent="AudioManager"]
 stream = ExtResource("5_l0ebc")
+volume_db = -80.0
+autoplay = true
 
 [node name="Layer2" type="AudioStreamPlayer" parent="AudioManager"]
 stream = ExtResource("6_04o8i")
+volume_db = -80.0
+autoplay = true
 
 [node name="Layer3" type="AudioStreamPlayer" parent="AudioManager"]
 stream = ExtResource("7_if44v")
+volume_db = -80.0
+autoplay = true
