@@ -8,12 +8,12 @@ using System.Threading;
 public partial class Star : Area2D
 {
 	[Export]
-	public PackedScene Sun { get; set; }
+	public PackedScene SunScene { get; set; }
 
 	private CharterPlayer _chartPlayer;
 	private Globals globals;
 	private Label label;
-	private SparkSpawner OurSun;
+	private SparkSpawner ourSun;
 
 	PackedScene arrow = GD.Load<PackedScene>("res://arrow.tscn");
 
@@ -21,17 +21,13 @@ public partial class Star : Area2D
 	{
 		globals = GetNode<Globals>("/root/Globals");
 		label = GetNode<Label>("Control/Label");
-		OurSun = Sun.Instantiate<SparkSpawner>();
-		
-
+		CreateStar();
 	}
-	public static Star LastClicked; // tracks the most recent star clicked on to start rhythm game
-	public bool Clicked = false;
 
-	public void OnClicked()
+	public void CreateStar()
 	{
-		Clicked = true;
-		LastClicked = this; // mark this one as the last clicked
+		SparkSpawner ourSun = SunScene.Instantiate<SparkSpawner>();
+		AddChild(ourSun);
 	}
 
 	public void SpawnNote(string inputKey, float timing = 0)
@@ -69,7 +65,7 @@ public partial class Star : Area2D
 
 	void GradeNoteHit(Arrow arrow)
 	{
-		var rawGrade = arrow.hitTime - globals.audioTimer;
+		float rawGrade = arrow.hitTime - globals.audioTimer;
 
 		if (rawGrade < 0.5)
 		{
@@ -84,27 +80,20 @@ public partial class Star : Area2D
 
 	string DisplayGrade(float rawGrade)
 	{
-		var absGrade = Math.Abs(rawGrade);
-		var msOff = Math.Round(absGrade * 1000);
+		float absGrade = Math.Abs(rawGrade);
+		double msOff = Math.Round(absGrade * 1000);
 
-		var grade = msOff switch
+		string grade = msOff switch
 		{
 			< 30 => "PERFECT",
 			< 60 => "GOOD",
 			< 120 => "OK",
 			_ => "BAD",
 		};
-		int sparkQuantity = grade switch
-		{
-			"PERFECT" => 12,
-			"GOOD" => 6,
-			"OKAY" => 1,
-			"BAD" => 0,
-			_ => 0
-		};
-		OurSun.SpawnSparks(sparkQuantity);
-		var lateOrEarly = rawGrade < 0 ? "late" : "early";
-		var guide = $"{lateOrEarly} {msOff}ms";
+		int sparkQuantity = (int)Math.Floor(20 / Math.Max(msOff/5, 1));
+		GetNode<SparkSpawner>("SparkSpawner").SpawnSparks(sparkQuantity);
+		string lateOrEarly = rawGrade < 0 ? "late" : "early";
+		string guide = $"{lateOrEarly} {msOff}ms";
 		return $"{grade} ({guide})";
 	}
 }

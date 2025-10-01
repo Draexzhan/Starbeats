@@ -86,16 +86,16 @@ modulate = Color(1, 1, 1, 0.39215687)
 position = Vector2(-23, 0)
 texture = ExtResource("3_cm0pq")
 
-[node name="LeftStar" parent="Constellation" groups=["Stars"] instance=ExtResource("4_3dxm6")]
+[node name="LeftStar" parent="Constellation" instance=ExtResource("4_3dxm6")]
 position = Vector2(-366, 204)
 
-[node name="RightStar" parent="Constellation" groups=["Stars"] instance=ExtResource("4_3dxm6")]
+[node name="RightStar" parent="Constellation" instance=ExtResource("4_3dxm6")]
 position = Vector2(470, -170)
 
-[node name="UpStar" parent="Constellation" groups=["Stars"] instance=ExtResource("4_3dxm6")]
+[node name="UpStar" parent="Constellation" instance=ExtResource("4_3dxm6")]
 position = Vector2(99, -351)
 
-[node name="DownStar" parent="Constellation" groups=["Stars"] instance=ExtResource("4_3dxm6")]
+[node name="DownStar" parent="Constellation" instance=ExtResource("4_3dxm6")]
 position = Vector2(25, 335)
 
 [node name="CharterPlayer" parent="." instance=ExtResource("5_fos0i")]
